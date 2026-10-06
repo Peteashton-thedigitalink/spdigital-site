@@ -1,0 +1,15 @@
+# SP Digital Consultants — llms.txt
+User-agent: *
+Allow: /
+
+# Priority Pages
+/
+#services
+#who
+#testimonials
+#contact
+
+# Business Info
+Name: SP Digital Consultants
+Location: Stowmarket, Suffolk, UK
+Services: Digital Marketing, SEO, Web Development, Branding, Social Media, AI Strategy
