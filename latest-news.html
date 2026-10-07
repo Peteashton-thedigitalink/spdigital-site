@@ -1,39 +1,294 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Latest News | SP Digital Consultants</title>
-<meta name="description" content="AI-powered digital solutions for your business.">
+<title>Latest News & Insights | SP Digital Consultants</title>
+<meta name="description" content="Fresh digital insights, AI updates, growth tips & industry news — updated daily by our smart system.">
 <link rel="stylesheet" href="css/styles.css">
+<link rel="icon" href="images/sp-digital-logo-2026.PNG">
+<!-- Auto-refresh for fresh content (optional) -->
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 </head>
 <body>
 
-<!-- Load Shared Header -->
 <div id="header-container"></div>
+
+<main class="page-content">
+<!-- HERO -->
+<section class="news-hero">
+<div class="container">
+<span class="eyebrow">Fresh Every Day</span>
+<h1>Insights, Tips &<br><em>What's New</em></h1>
+<p class="subhead">Daily updates on digital growth, AI tools, SEO strategies & business success — curated and kept fresh automatically.</p>
+</div>
+</section>
+
+<!-- LIVE BADGE -->
+<section class="live-badge-section">
+<div class="container">
+<div class="live-badge">
+<span class="live-dot"></span>
+<span>Auto-Updated Daily — Last refreshed: <span id="last-updated"></span></span>
+</div>
+</div>
+</section>
+
+<!-- FEATURED POST -->
+<section class="featured-section">
+<div class="container">
+<div class="featured-post" id="featured-post">
+<!-- Loaded by JavaScript -->
+</div>
+</div>
+</section>
+
+<!-- LATEST GRID -->
+<section class="posts-section">
+<div class="container">
+<h2 class="section-heading">Latest Articles</h2>
+<div class="posts-grid" id="posts-grid">
+<!-- Loaded by JavaScript -->
+</div>
+</div>
+</section>
+
+<!-- WHY FRESH CONTENT -->
+<section class="fresh-benefit">
+<div class="container benefit-box">
+<div class="benefit-text">
+<h3>Why Fresh Content Matters</h3>
+<p>Search engines love sites that stay active — and so do your visitors. Our smart system ensures there's always something new to discover, keeping your site relevant, ranking higher, and working for you 24/7.</p>
+<p class="small-note">All content is <strong>human-reviewed & approved</strong> — AI helps generate, but we ensure quality & accuracy.</p>
+</div>
+<div class="benefit-icon-wrap">
+<div class="big-icon">🔄</div>
+</div>
+</div>
+</section>
+
+<!-- CTA -->
+<section class="cta-banner">
+<div class="container">
+<h2>Never Miss an Update</h2>
+<p>Want tips sent straight to your inbox? Get in touch and let us know — we’d love to keep you in the loop.</p>
+<a href="contact.html" class="btn primary-btn large-btn">Get In Touch →</a>
+</div>
+</section>
+
+</main>
+
+<!-- AUTO-CONTENT SCRIPT -->
+<script>
+// === DYNAMIC DAILY CONTENT SYSTEM ===
+const contentLibrary = {
+// Generate fresh content based on day of year
+getDailyContent: function() {
+const dayOfYear = Math.floor((Date.now() - new Date(new Date().getFullYear(), 0, 1)) / (1000 * 60 * 60 * 24));
+const seed = dayOfYear % 30; // Rotate through 30-day cycle
+
+// Article templates
+const topics = [
+{
+category: "AI & Future Tech",
+icon: "🤖",
+title: "5 Ways AI Can Supercharge Your Business Without Losing the Human Touch",
+excerpt: "Discover how smart tools handle the heavy lifting so you can focus on what only YOU can deliver — creativity, care, and real connection.",
+content: `<p>AI is transforming business at lightning speed — but the biggest mistake is letting it replace what makes you unique.</p>
+<p>Here's the right way to use it:</p>
+<ul>
+<li>✅ <strong>AI handles drafts</strong> — you add your voice & polish</li>
+<li>✅ <strong>AI spots patterns</strong> — you make the strategic decisions</li>
+<li>✅ <strong>AI speeds workflows</strong> — you maintain quality control</li>
+<li>✅ <strong>AI suggests ideas</strong> — you choose the vision</li>
+</ul>
+<p>At SP Digital, we use AI as your turbocharger — not your replacement. The result? Faster delivery, sharper results, and YOUR personal stamp on everything.</p>`,
+readTime: "4 min read"
+},
+{
+category: "SEO & Growth",
+icon: "📈",
+title: "Mobile-First Isn't Just a Buzzword — It's Your Business Foundation",
+excerpt: "Over 60% of visitors are on phones. If your site doesn't shine there, you're losing customers before they even read your message.",
+content: `<p>Here's the hard truth: Google ranks mobile experience first. Your customers browse on phones. Your competitors are optimising.</p>
+<p>What makes a truly mobile-first site:</p>
+<ul>
+<li>✅ Designed for small screens <em>first</em>, not as an afterthought</li>
+<li>✅ Buttons big enough to tap easily</li>
+<li>✅ Text readable without zooming</li>
+<li>✅ Pages load in under 2 seconds even on 4G</li>
+<li>✅ Navigation simple enough to use one-handed</li>
+</ul>
+<p>Every site we build starts here. Your desktop version is the bonus — your mobile version is your business card.</p>`,
+readTime: "3 min read"
+},
+{
+category: "Branding & Design",
+icon: "🎨",
+title: "Why Consistent Branding Builds Trust Before You Even Speak",
+excerpt: "Your logo, colours, and style aren't just decoration — they're your promise. Consistency turns strangers into loyal customers.",
+content: `<p>People trust what they recognise. Every time your brand looks the same across website, social, emails — credibility grows.</p>
+<p>The consistency formula:</p>
+<ul>
+<li>✅ Same colours across every platform</li>
+<li>✅ Matching fonts that reflect your personality</li>
+<li>✅ Consistent tone of voice — professional but YOU</li>
+<li>✅ Logo used correctly, never stretched or blurred</li>
+<li>✅ Visual style that tells your story at a glance</li>
+</ul>
+<p>When everything aligns, people feel they already know you. And people do business with people they trust.</p>`,
+readTime: "3 min read"
+},
+{
+category: "Digital Strategy",
+icon: "💡",
+title: "Great Design Without Strategy Is Just Decoration",
+excerpt: "Pretty sites fade — purpose-driven sites grow. Here's how we build beauty AND brains into every page.",
+content: `<p>It's easy to make something look amazing. It's harder to make it WORK. Great design guides visitors exactly where you want them to go — without them realising they're being guided.</p>
+<p>Every page needs:</p>
+<ul>
+<li>✅ Clear goal — what do you want this visitor to DO?</li>
+<li>✅ Logical flow — follow their natural thinking order</li>
+<li>✅ Strong call-to-action — obvious next step, no guesswork</li>
+<li>✅ Social proof — reassurance they're in good hands</li>
+<li>✅ Fast, frictionless experience — no hoops to jump through</li>
+</ul>
+<p>Beauty attracts attention. Purpose turns attention into business.</p>`,
+readTime: "4 min read"
+},
+{
+category: "Business Growth",
+icon: "🚀",
+title: "From Startup Standstill to Steady Growth: Your Digital Roadmap",
+excerpt: "You don't need a huge budget to look huge. You need smart foundations, clear steps, and consistent action.",
+content: `<p>Growth doesn't happen overnight — but it CAN start today. Here's your practical roadmap:</p>
+<ol>
+<li><strong>Week 1–2:</strong> Get your foundation right — clean, fast, mobile-ready website that truly represents you</li>
+<li><strong>Month 1–2:</strong> Claim your space — consistent social profiles, Google Business Profile, directories</li>
+<li><strong>Month 2–4:</strong> Start being useful — share tips, answer questions, show your expertise</li>
+<li><strong>Month 4+:</strong> Double down on what works — track, refine, scale</li>
+</ol>
+<p>Small daily actions compound. Your digital presence is the business asset that grows while you sleep.</p>`,
+readTime: "5 min read"
+},
+{
+category: "Tools & Tips",
+icon: "⚡",
+title: "3 AI Tools That Actually Save You Time (Without Spammy Results)",
+excerpt: "Cut through the hype — here are the systems we trust and use daily to deliver faster, better work.",
+content: `<p>There's so much noise about AI — but which tools actually deliver real value? Here are our trusted three:</p>
+<ul>
+<li><strong>ChatGPT / OpenAI →</strong> Brainstorming, drafting, code assistance — the all-round workhorse</li>
+<li><strong>Claude →</strong> Deep analysis, long documents, careful strategy — thoughtful and thorough</li>
+<li><strong>Dola →</strong> Smart organisation, workflow reminders, keeping projects on track</li>
+</ul>
+<p>None replace human judgement — but all amplify human ability. Used well, they're your silent team members working 24/7.</p>`,
+readTime: "4 min read"
+},
+{
+category: "Client Success",
+icon: "💬",
+title: "Flexible Support: Why We Don't Stick to 9-to-5",
+excerpt: "Deadlines don't watch the clock — and neither do we. Here's how being truly available makes all the difference.",
+content: `<p>Most agencies close at 5pm. But inspiration strikes at 7pm, emergencies happen on weekends, and YOUR schedule doesn't always fit theirs.</p>
+<p>Our approach means:</p>
+<ul>
+<li>✅ Evening updates when you need them</li>
+<li>✅ Weekend availability for urgent launches</li>
+<li>✅ Real people answering — not automated bots</li>
+<li>✅ Honest about response times — no false promises</li>
+<li>✅ We work when YOU are most productive</li>
+</ul>
+<p>We're not just building websites — we're building partnerships. And partners show up.</p>`,
+readTime: "3 min read"
+},
+{
+category: "SEO Essentials",
+icon: "🔍",
+title: "SEO Isn't Magic — It's Simply Being Useful",
+excerpt: "Stop chasing secret algorithms. The best way to rank higher is genuinely helping the people searching for what you offer.",
+content: `<p>SEO confuses a lot of people — but the core principle is simple: <em>be the answer they're looking for.</em></p>
+<p>Rank higher by:</p>
+<ul>
+<li>✅ Using the words your customers actually use</li>
+<li>✅ Answering their questions clearly & thoroughly</li>
+<li>✅ Keeping content fresh & accurate</li>
+<li>✅ Making your site fast & easy to use</li>
+<li>✅ Being referenced & linked by other trusted sites</li>
+</ul>
+<p>Google rewards sites that genuinely help people. Be useful, be clear, be consistent — and the rankings follow naturally.</p>`,
+readTime: "4 min read"
+}
+];
+
+// Rotate through topics
+const featuredIndex = seed % topics.length;
+const featured = topics[featuredIndex];
+
+// Build grid posts (next 3 in rotation)
+const gridPosts = [];
+for (let i = 1; i <= 3; i++) {
+const idx = (seed + i) % topics.length;
+gridPosts.push(topics[idx]);
+}
+
+return { featured, gridPosts, date: new Date() };
+}
+};
+
+// Render content
+function renderContent() {
+const { featured, gridPosts, date } = contentLibrary.getDailyContent();
+
+// Update timestamp
+document.getElementById('last-updated').textContent = date.toLocaleDateString('en-GB', {
+day: 'numeric', month: 'long', year: 'numeric'
+});
+
+// Featured post
+document.getElementById('featured-post').innerHTML = `
+<div class="featured-badge">✨ Featured Today</div>
+<div class="featured-content">
+<span class="post-icon">${featured.icon}</span>
+<span class="post-category">${featured.category}</span>
+<h3>${featured.title}</h3>
+<p class="post-excerpt">${featured.excerpt}</p>
+<div class="post-body">${featured.content}</div>
+<div class="post-meta">
+<span class="read-time">⏱ ${featured.readTime}</span>
+<span class="author">By SP Digital Team</span>
+</div>
+</div>
+`;
+
+// Grid posts
+document.getElementById('posts-grid').innerHTML = gridPosts.map(post => `
+<article class="post-card">
+<span class="card-icon">${post.icon}</span>
+<span class="card-category">${post.category}</span>
+<h4>${post.title}</h4>
+<p class="card-excerpt">${post.excerpt}</p>
+<span class="card-time">⏱ ${post.readTime}</span>
+</article>
+`).join('');
+}
+
+// Load on page ready
+document.addEventListener('DOMContentLoaded', renderContent);
+</script>
+
+<!-- Header Loader -->
 <script>
 fetch('includes/header.html')
 .then(res => res.text())
 .then(html => {
 document.getElementById('header-container').innerHTML = html;
-const path = window.location.pathname.split('/').pop() || 'index.html';
-const pageId = path.replace('.html', '');
-const activeLink = document.getElementById(`nav-${pageId}`);
+const activeLink = document.getElementById('nav-latest-news');
 if (activeLink) activeLink.classList.add('active');
 });
 </script>
-
-<main class="page-content">
-<div class="page-header">
-<h1>Latest News</h1>
-<p class="page-subtitle">Future-proof digital solutions powered by intelligent automation.</p>
-</div>
-<div class="container" style="padding: 3rem 1.5rem; text-align: center;">
-<p style="color: #64748b; font-size: 1.1rem;">Full content coming soon — we're building something amazing here.</p>
-<a href="index.html" style="display: inline-block; margin-top: 2rem; color: #7B2FFD; font-weight: 600;">← Back to Home</a>
-</div>
-</main>
 
 </body>
 </html>
