@@ -1,39 +1,140 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>How We Do It | SP Digital Consultants</title>
-<meta name="description" content="AI-powered digital solutions for your business.">
+<title>What We Do | SP Digital Consultants</title>
+<meta name="description" content="Full-service digital marketing — Branding, SEO, Web Development, Social Media & AI-Ready Strategy.">
 <link rel="stylesheet" href="css/styles.css">
+<link rel="icon" href="images/sp-digital-logo-2026.PNG">
 </head>
 <body>
 
-<!-- Load Shared Header -->
 <div id="header-container"></div>
+
+<main class="page-content">
+<!-- HERO SECTION -->
+<section class="wwd-hero">
+<div class="container">
+<span class="eyebrow">What We Do</span>
+<h1>Digital Growth That<br><em>Actually Delivers</em></h1>
+<p class="subhead">From startup brands to established names — we build beautiful, high-performing digital solutions that get noticed, get traffic, and get results.</p>
+<a href="contact.html" class="btn light-btn">Start Your Project →</a>
+</div>
+</section>
+
+<!-- SERVICES GRID -->
+<section class="services-section">
+<div class="container">
+<div class="section-intro">
+<h2>Everything You Need Under One Roof</h2>
+<p>Strategic, creative, and built to last — every service is tailored to your goals, your audience, and your growth.</p>
+</div>
+
+<div class="services-grid">
+
+<!-- SERVICE 1 -->
+<div class="service-card">
+<div class="card-icon">🎨</div>
+<h3>Branding & Design</h3>
+<p>Stand out instantly with a professional identity that tells your story. Logos, brand kits, visual guidelines — designed to turn heads and build trust.</p>
+<ul class="card-features">
+<li>✓ Logo & visual identity</li>
+<li>✓ Brand style guides</li>
+<li>✓ Marketing assets</li>
+<li>✓ Consistent across all platforms</li>
+</ul>
+</div>
+
+<!-- SERVICE 2 -->
+<div class="service-card">
+<div class="card-icon">📈</div>
+<h3>SEO & Digital Strategy</h3>
+<p>Get found by the people who matter most. Technical SEO, keyword strategy, content planning — sustainable growth that builds month after month.</p>
+<ul class="card-features">
+<li>✓ Full site audits</li>
+<li>✓ On-page & technical SEO</li>
+<li>✓ Keyword & competitor research</li>
+<li>✓ Ongoing performance tracking</li>
+</ul>
+</div>
+
+<!-- SERVICE 3 -->
+<div class="service-card">
+<div class="card-icon">💻</div>
+<h3>Website Development</h3>
+<p>Fast, beautiful, mobile-first sites that work as hard as you do. Built to convert, optimised for speed, and ready to grow with your business.</p>
+<ul class="card-features">
+<li>✓ Mobile-first design</li>
+<li>✓ SEO & AI-ready architecture</li>
+<li>✓ Blazing-fast performance</li>
+<li>✓ Easy self-management</li>
+</ul>
+</div>
+
+<!-- SERVICE 4 -->
+<div class="service-card">
+<div class="card-icon">📱</div>
+<h3>Social Media Management</h3>
+<p>Build your community, amplify your voice, and grow your reach. Strategy, content, scheduling, and engagement — consistent, professional, human.</p>
+<ul class="card-features">
+<li>✓ Platform strategy & setup</li>
+<li>✓ Content creation & curation</li>
+<li>✓ Scheduled posting</li>
+<li>✓ Growth & engagement reporting</li>
+</ul>
+</div>
+
+<!-- SERVICE 5 -->
+<div class="service-card">
+<div class="card-icon">🤖</div>
+<h3>AI-Ready Strategy</h3>
+<p>Future-proof your business with intelligent systems. From smart workflows to automated content — harness AI to work smarter, not harder.</p>
+<ul class="card-features">
+<li>✓ AI integration roadmap</li>
+<li>✓ Automated workflows</li>
+<li>✓ Content & SEO AI tools</li>
+<li>✓ Ethical, transparent implementation</li>
+</ul>
+</div>
+
+<!-- SERVICE 6 -->
+<div class="service-card">
+<div class="card-icon">💬</div>
+<h3>Digital Consultancy</h3>
+<p>Need a clear plan? We offer expert guidance, audits, and strategy sessions — honest, practical advice to steer your business forward.</p>
+<ul class="card-features">
+<li>✓ Full digital audits</li>
+<li>✓ Roadmap & growth planning</li>
+<li>✓ One-to-one strategy sessions</li>
+<li>✓ No jargon, clear next steps</li>
+</ul>
+</div>
+
+</div>
+</div>
+</section>
+
+<!-- CTA BANNER -->
+<section class="cta-banner">
+<div class="container">
+<h2>Ready to elevate your digital presence?</h2>
+<p>Book your FREE consultation today — no obligation, just honest advice and a clear plan.</p>
+<a href="contact.html" class="btn primary-btn large-btn">Book Your Free Consultation</a>
+</div>
+</section>
+
+</main>
+
 <script>
 fetch('includes/header.html')
 .then(res => res.text())
 .then(html => {
 document.getElementById('header-container').innerHTML = html;
-const path = window.location.pathname.split('/').pop() || 'index.html';
-const pageId = path.replace('.html', '');
-const activeLink = document.getElementById(`nav-${pageId}`);
+const activeLink = document.getElementById('nav-what-we-do');
 if (activeLink) activeLink.classList.add('active');
 });
 </script>
-
-<main class="page-content">
-<div class="page-header">
-<h1>How We Do It</h1>
-<p class="page-subtitle">Future-proof digital solutions powered by intelligent automation.</p>
-</div>
-<div class="container" style="padding: 3rem 1.5rem; text-align: center;">
-<p style="color: #64748b; font-size: 1.1rem;">Full content coming soon — we're building something amazing here.</p>
-<a href="index.html" style="display: inline-block; margin-top: 2rem; color: #7B2FFD; font-weight: 600;">← Back to Home</a>
-</div>
-</main>
 
 </body>
 </html>

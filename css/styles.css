@@ -440,4 +440,216 @@ margin-bottom: 30px;
     padding: 24px;
     }
     }
+    /* ===== WHAT WE DO PAGE — WOW STYLING ===== */
+.wwd-hero {
+    background: linear-gradient(135deg, #7B2FFD 0%, #6366F1 50%, #4F46E5 100%);
+    color: white;
+    padding: 80px 24px 100px;
+    text-align: center;
+    margin-top: 70px;
+    position: relative;
+    overflow: hidden;
+    }
     
+    .wwd-hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
+    animation: float 20s infinite linear;
+    }
+    
+    @keyframes float {
+    0% { transform: translate(0, 0); }
+    50% { transform: translate(5%, 5%); }
+    100% { transform: translate(0, 0); }
+    }
+    
+    .wwd-hero .container {
+    position: relative;
+    z-index: 1;
+    }
+    
+    .wwd-hero .eyebrow {
+    display: inline-block;
+    background: rgba(255,255,255,0.2);
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin-bottom: 20px;
+    backdrop-filter: blur(6px);
+    }
+    
+    .wwd-hero h1 {
+    font-size: 3rem;
+    line-height: 1.15;
+    margin: 0 0 20px;
+    }
+    
+    .wwd-hero h1 em {
+    font-style: normal;
+    background: linear-gradient(90deg, #fff, #E0E7FF);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    }
+    
+    .wwd-hero .subhead {
+    font-size: 1.2rem;
+    max-width: 700px;
+    margin: 0 auto 32px;
+    opacity: 0.92;
+    line-height: 1.6;
+    }
+    
+    .light-btn {
+    background: white;
+    color: #7B2FFD !important;
+    padding: 14px 32px !important;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 1.05rem;
+    transition: all 0.3s ease;
+    display: inline-block;
+    text-decoration: none;
+    }
+    
+    .light-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    }
+    
+    /* SERVICES SECTION */
+    .services-section {
+    padding: 80px 24px;
+    max-width: 1240px;
+    margin: 0 auto;
+    }
+    
+    .section-intro {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto 60px;
+    }
+    
+    .section-intro h2 {
+    font-size: 2.2rem;
+    color: #1e293b;
+    margin: 0 0 16px;
+    }
+    
+    .section-intro p {
+    font-size: 1.1rem;
+    color: #64748b;
+    line-height: 1.6;
+    }
+    
+    .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+    gap: 32px;
+    }
+    
+    .service-card {
+    background: white;
+    border-radius: 20px;
+    padding: 40px 32px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+    border: 1px solid #f1f5f9;
+    transition: all 0.35s ease;
+    position: relative;
+    overflow: hidden;
+    }
+    
+    .service-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 16px 40px rgba(123, 47, 253, 0.12);
+    border-color: #7B2FFD;
+    }
+    
+    .card-icon {
+    font-size: 2.8rem;
+    margin-bottom: 20px;
+    }
+    
+    .service-card h3 {
+    font-size: 1.35rem;
+    color: #1e293b;
+    margin: 0 0 14px;
+    }
+    
+    .service-card p {
+    color: #64748b;
+    line-height: 1.6;
+    margin: 0 0 20px;
+    }
+    
+    .card-features {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    }
+    
+    .card-features li {
+    padding: 8px 0;
+    color: #334155;
+    font-weight: 500;
+    border-bottom: 1px solid #f8fafc;
+    }
+    
+    .card-features li:last-child {
+    border-bottom: none;
+    }
+    
+    /* CTA BANNER */
+    .cta-banner {
+    background: linear-gradient(135deg, #1e293b, #334155);
+    color: white;
+    padding: 60px 24px;
+    text-align: center;
+    border-radius: 20px;
+    max-width: 1200px;
+    margin: 0 auto 80px;
+    }
+    
+    .cta-banner h2 {
+    font-size: 2rem;
+    margin: 0 0 12px;
+    }
+    
+    .cta-banner p {
+    font-size: 1.1rem;
+    opacity: 0.85;
+    margin-bottom: 32px;
+    }
+    
+    .large-btn {
+    padding: 16px 40px !important;
+    font-size: 1.1rem !important;
+    }
+    
+    /* MOBILE RESPONSIVE */
+    @media (max-width: 900px) {
+    .wwd-hero h1 {
+    font-size: 2rem;
+    }
+    .wwd-hero .subhead {
+    font-size: 1rem;
+    }
+    .services-grid {
+    grid-template-columns: 1fr;
+    }
+    .section-intro h2 {
+    font-size: 1.7rem;
+    }
+    .cta-banner h2 {
+    font-size: 1.5rem;
+    }
+    .service-card {
+    padding: 30px 24px;
+    }
+    }
