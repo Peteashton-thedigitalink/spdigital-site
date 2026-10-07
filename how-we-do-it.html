@@ -171,7 +171,14 @@ const activeLink = document.getElementById('nav-how-we-do-it');
 if (activeLink) activeLink.classList.add('active');
 });
 </script>
-
+<!-- FOOTER -->
+<script>
+    fetch('includes/footer.html')
+    .then(res => res.text())
+    .then(html => {
+    document.body.insertAdjacentHTML('beforeend', html);
+    });
+    </script>
 </body>
 </html>
 
