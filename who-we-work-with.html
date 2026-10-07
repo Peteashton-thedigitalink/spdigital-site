@@ -1,39 +1,153 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Who We Work With | SP Digital Consultants</title>
-<meta name="description" content="AI-powered digital solutions for your business.">
+<meta name="description" content="From startups to multi-million pound companies, public figures and elected representatives — we serve clients across the UK.">
 <link rel="stylesheet" href="css/styles.css">
+<link rel="icon" href="images/sp-digital-logo-2026.PNG">
 </head>
 <body>
 
-<!-- Load Shared Header -->
 <div id="header-container"></div>
+
+<main class="page-content">
+<!-- HERO SECTION -->
+<section class="www-hero">
+<div class="container">
+<span class="eyebrow">Trusted By Many</span>
+<h1>From Startups to<br><em>Established Names</em></h1>
+<p class="subhead">No matter your size, sector or stage — we bring the same dedication, creativity and results-driven approach to every project.</p>
+<a href="contact.html" class="btn light-btn">Join Our Clients →</a>
+</div>
+</section>
+
+<!-- CLIENT CATEGORIES -->
+<section class="clients-section">
+<div class="container">
+
+<!-- CATEGORY 1: STARTUPS -->
+<div class="client-category">
+<div class="category-content">
+<span class="cat-icon">🚀</span>
+<h2>Startups & New Ventures</h2>
+<p>Turning fresh ideas into powerful digital presences. We build your foundation — brand, website, strategy — designed to grow as fast as you do.</p>
+<ul class="client-features">
+<li>✓ Launch-ready identity</li>
+<li>✓ Scalable architecture</li>
+<li>✓ Growth-focused strategy</li>
+<li>✓ Budget-friendly packages</li>
+</ul>
+</div>
+<div class="category-visual">
+<div class="visual-card startup-card">
+<h3>Your Vision, Our Blueprint</h3>
+<p>From day one to market leader — we’re with you every step.</p>
+</div>
+</div>
+</div>
+
+<!-- CATEGORY 2: GROWING BUSINESSES -->
+<div class="client-category reverse">
+<div class="category-content">
+<span class="cat-icon">📈</span>
+<h2>Growing & Mid-Sized Businesses</h2>
+<p>You’ve built it — now let’s amplify it. We refine your brand, optimise your reach, and put systems in place that keep delivering results month after month.</p>
+<ul class="client-features">
+<li>✓ Brand refresh & alignment</li>
+<li>✓ SEO & traffic growth</li>
+<li>✓ Conversion optimisation</li>
+<li>✓ Streamlined workflows</li>
+</ul>
+</div>
+<div class="category-visual">
+<div class="visual-card growth-card">
+<h3>Next Level Growth</h3>
+<p>Proven strategies that turn steady progress into serious momentum.</p>
+</div>
+</div>
+</div>
+
+<!-- CATEGORY 3: LARGE ORGANISATIONS -->
+<div class="client-category">
+<div class="category-content">
+<span class="cat-icon">🏢</span>
+<h2>Established Companies & Enterprises</h2>
+<p>Multi-million turnover organisations trust us with their digital presence. Precision, reliability, compliance and performance — delivered at scale.</p>
+<ul class="client-features">
+<li>✓ Enterprise-grade platforms</li>
+<li>✓ Advanced SEO & analytics</li>
+<li>✓ Brand consistency across channels</li>
+<li>✓ Dedicated project management</li>
+</ul>
+</div>
+<div class="category-visual">
+<div class="visual-card enterprise-card">
+<h3>Scale & Performance</h3>
+<p>Robust, future-proof digital solutions built to handle high volume.</p>
+</div>
+</div>
+</div>
+
+<!-- CATEGORY 4: PUBLIC FIGURES -->
+<div class="client-category reverse">
+<div class="category-content">
+<span class="cat-icon">⭐</span>
+<h2>Public Figures, Celebrities & MPs</h2>
+<p>High-profile presence with absolute discretion. Elegant, authoritative digital platforms that reflect your standing and protect your privacy.</p>
+<ul class="client-features">
+<li>✓ Discreet & confidential service</li>
+<li>✓ Premium, polished design</li>
+<li>✓ Reputation & brand protection</li>
+<li>✓ Secure, private workflows</li>
+</ul>
+</div>
+<div class="category-visual">
+<div class="visual-card public-card">
+<h3>Authority & Elegance</h3>
+<p>Distinguished digital presence — crafted with care and absolute discretion.</p>
+</div>
+</div>
+</div>
+
+</div>
+</section>
+
+<!-- TESTIMONIAL / TRUST BANNER -->
+<section class="trust-banner">
+<div class="container">
+<h2>One Standard — Excellence</h2>
+<p>Whether you’re launching your first venture or leading an established organisation — you get the same award-winning service, dedication and results.</p>
+<div class="trust-stats">
+<div class="stat-item">
+<div class="stat-number">100%</div>
+<div class="stat-label">Dedication</div>
+</div>
+<div class="stat-item">
+<div class="stat-number">UK</div>
+<div class="stat-label">Based & Serving</div>
+</div>
+<div class="stat-item">
+<div class="stat-number">24/7</div>
+<div class="stat-label">Support Available</div>
+</div>
+</div>
+<a href="contact.html" class="btn primary-btn large-btn">Let's Work Together</a>
+</div>
+</section>
+
+</main>
+
 <script>
 fetch('includes/header.html')
 .then(res => res.text())
 .then(html => {
 document.getElementById('header-container').innerHTML = html;
-const path = window.location.pathname.split('/').pop() || 'index.html';
-const pageId = path.replace('.html', '');
-const activeLink = document.getElementById(`nav-${pageId}`);
+const activeLink = document.getElementById('nav-who-we-work-with');
 if (activeLink) activeLink.classList.add('active');
 });
 </script>
-
-<main class="page-content">
-<div class="page-header">
-<h1>Who We Work With</h1>
-<p class="page-subtitle">Future-proof digital solutions powered by intelligent automation.</p>
-</div>
-<div class="container" style="padding: 3rem 1.5rem; text-align: center;">
-<p style="color: #64748b; font-size: 1.1rem;">Full content coming soon — we're building something amazing here.</p>
-<a href="index.html" style="display: inline-block; margin-top: 2rem; color: #7B2FFD; font-weight: 600;">← Back to Home</a>
-</div>
-</main>
 
 </body>
 </html>
