@@ -119,14 +119,14 @@ if (activeLink) activeLink.classList.add('active');
 </div>
 </section>
 
-<footer>
-<div class="container footer-grid">
-<div><h3>SP Digital Consultants</h3><p>Full‑Service Digital Marketing</p></div>
-<div><h4>Quick Links</h4><a href="#services">Services</a><br><a href="#who">Who We Work With</a><br><a href="#testimonials">Testimonials</a></div>
-<div><h4>Contact</h4><p>📧 admin@spdigitalconsultants.com</p><p>📞 01449 258437</p><p>📍 Stowmarket, Suffolk</p></div>
-</div>
-<div class="copyright"><p>© 2026 SP Digital Consultants. All rights reserved.</p></div>
-</footer>
+<!-- FOOTER -->
+<script>
+    fetch('includes/footer.html')
+    .then(res => res.text())
+    .then(html => {
+    document.body.insertAdjacentHTML('beforeend', html);
+    });
+    </script>
 
 <script src="js/main.js"></script>
 </body>
