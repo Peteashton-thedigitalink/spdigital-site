@@ -880,4 +880,284 @@ margin-bottom: 30px;
     .visual-card {
     max-width: 100%;
     }
+    }/* ===== HOW WE DO IT — WOW STYLING ===== */
+.hwd-hero {
+    background: linear-gradient(135deg, #10B981 0%, #0D9488 50%, #7B2FFD 100%);
+    color: white;
+    padding: 80px 24px 100px;
+    text-align: center;
+    margin-top: 70px;
+    position: relative;
+    overflow: hidden;
     }
+    
+    .hwd-hero::before {
+    content: '';
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%);
+    border-radius: 50%;
+    top: 10%;
+    left: 10%;
+    animation: pulse 6s infinite;
+    }
+    
+    @keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 0.5; }
+    50% { transform: scale(1.2); opacity: 0.8; }
+    }
+    
+    .hwd-hero .eyebrow {
+    display: inline-block;
+    background: rgba(255,255,255,0.2);
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin-bottom: 20px;
+    backdrop-filter: blur(6px);
+    }
+    
+    .hwd-hero h1 {
+    font-size: 3rem;
+    line-height: 1.15;
+    margin: 0 0 20px;
+    }
+    
+    .hwd-hero h1 em {
+    font-style: normal;
+    background: linear-gradient(90deg, #fff, #A7F3D0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    }
+    
+    .hwd-hero .subhead {
+    font-size: 1.2rem;
+    max-width: 700px;
+    margin: 0 auto 32px;
+    opacity: 0.92;
+    line-height: 1.6;
+    }
+    
+    /* PHILOSOPHY SECTION */
+    .philosophy-section {
+    padding: 80px 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+    }
+    
+    .philosophy-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 50px;
+    align-items: center;
+    }
+    
+    .philosophy-text h2 {
+    font-size: 2rem;
+    color: #1e293b;
+    margin: 0 0 20px;
+    }
+    
+    .philosophy-text p {
+    color: #64748b;
+    font-size: 1.05rem;
+    line-height: 1.7;
+    margin-bottom: 18px;
+    }
+    
+    .highlight-box {
+    background: linear-gradient(135deg, #F0FDF4, #ECFDF5);
+    border-left: 4px solid #10B981;
+    padding: 20px 24px;
+    border-radius: 0 12px 12px 0;
+    margin-top: 10px;
+    }
+    
+    .highlight-box p {
+    margin: 0;
+    color: #065F46;
+    font-weight: 500;
+    }
+    
+    .glow-card {
+    background: linear-gradient(135deg, #7B2FFD, #6366F1);
+    color: white;
+    padding: 45px 35px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(123, 47, 253, 0.25);
+    transition: transform 0.3s ease;
+    }
+    
+    .glow-card:hover {
+    transform: translateY(-6px);
+    }
+    
+    .glow-icon {
+    font-size: 3rem;
+    margin-bottom: 15px;
+    }
+    
+    .glow-card h3 {
+    font-size: 1.4rem;
+    margin: 0 0 10px;
+    }
+    
+    .glow-card p {
+    opacity: 0.9;
+    margin: 0;
+    }
+    
+    /* PROCESS TIMELINE */
+    .process-section {
+    background: #F8FAFC;
+    padding: 80px 24px;
+    }
+    
+    .process-section .container {
+    max-width: 900px;
+    margin: 0 auto;
+    }
+    
+    .section-intro {
+    text-align: center;
+    margin-bottom: 60px;
+    }
+    
+    .section-intro h2 {
+    font-size: 2rem;
+    color: #1e293b;
+    margin: 0 0 12px;
+    }
+    
+    .section-intro p {
+    color: #64748b;
+    font-size: 1.05rem;
+    }
+    
+    .process-timeline {
+    position: relative;
+    }
+    
+    .process-timeline::before {
+    content: '';
+    position: absolute;
+    left: 22px;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: linear-gradient(to bottom, #10B981, #7B2FFD);
+    }
+    
+    .process-step {
+    display: flex;
+    gap: 25px;
+    margin-bottom: 45px;
+    position: relative;
+    }
+    
+    .step-number {
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, #10B981, #7B2FFD);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 1rem;
+    z-index: 1;
+    }
+    
+    .step-content h3 {
+    font-size: 1.25rem;
+    color: #1e293b;
+    margin: 0 0 8px;
+    }
+    
+    .step-content p {
+    color: #64748b;
+    line-height: 1.6;
+    margin: 0;
+    }
+    
+    /* DIFFERENCE GRID */
+    .difference-section {
+    padding: 80px 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+    }
+    
+    .center-heading {
+    text-align: center;
+    font-size: 2rem;
+    color: #1e293b;
+    margin: 0 0 50px;
+    }
+    
+    .difference-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+    }
+    
+    .diff-card {
+    background: white;
+    border: 1px solid #E2E8F0;
+    border-radius: 16px;
+    padding: 32px;
+    transition: all 0.3s ease;
+    }
+    
+    .diff-card:hover {
+    border-color: #7B2FFD;
+    transform: translateY(-5px);
+    box-shadow: 0 12px 28px rgba(123, 47, 253, 0.1);
+    }
+    
+    .diff-icon {
+    font-size: 2rem;
+    margin-bottom: 15px;
+    }
+    
+    .diff-card h3 {
+    font-size: 1.15rem;
+    color: #1e293b;
+    margin: 0 0 10px;
+    }
+    
+    .diff-card p {
+    color: #64748b;
+    line-height: 1.6;
+    margin: 0;
+    }
+    
+    /* MOBILE RESPONSIVE */
+    @media (max-width: 900px) {
+    .hwd-hero h1 {
+    font-size: 2rem;
+    }
+    .philosophy-grid {
+    grid-template-columns: 1fr;
+    }
+    .process-timeline::before {
+    left: 18px;
+    }
+    .step-number {
+    width: 40px;
+    height: 40px;
+    font-size: 0.9rem;
+    }
+    .difference-grid {
+    grid-template-columns: 1fr;
+    }
+    .center-heading {
+    font-size: 1.6rem;
+    }
+    }
+    
