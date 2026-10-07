@@ -1,39 +1,258 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>FAQ | SP Digital Consultants</title>
-<meta name="description" content="AI-powered digital solutions for your business.">
+<meta name="description" content="Clear answers to all your questions — how we work, pricing, AI, timelines, and what makes SP Digital different.">
 <link rel="stylesheet" href="css/styles.css">
+<link rel="icon" href="images/sp-digital-logo-2026.PNG">
 </head>
 <body>
 
-<!-- Load Shared Header -->
 <div id="header-container"></div>
+
+<main class="page-content">
+<!-- HERO -->
+<section class="faq-hero">
+<div class="container">
+<span class="eyebrow">Got Questions?</span>
+<h1>Everything You Need<br><em>To Know</em></h1>
+<p class="subhead">No jargon, no fine print — just honest answers to help you decide.</p>
+</div>
+</section>
+
+<!-- FAQ CATEGORIES -->
+<section class="faq-section">
+<div class="container">
+
+<!-- CATEGORY 1: WHO & WHAT -->
+<div class="faq-category">
+<h2>About Us & What We Do</h2>
+
+<div class="faq-item">
+<button class="faq-question" onclick="toggleFaq(this)">
+<span>Who is SP Digital Consultants?</span>
+<span class="faq-icon">+</span>
+</button>
+<div class="faq-answer">
+<p>We’re a UK-based digital agency with a difference — dedicated, flexible, and built around <em>your</em> success. From startups to established companies and public figures, we deliver beautiful, high-performing digital solutions that actually get results.</p>
+</div>
+</div>
+
+<div class="faq-item">
+<button class="faq-question" onclick="toggleFaq(this)">
+<span>What services do you offer?</span>
+<span class="faq-icon">+</span>
+</button>
+<div class="faq-answer">
+<p>Everything digital under one roof:</p>
+<ul>
+<li>🎨 Branding & Visual Identity</li>
+<li>📈 SEO & Digital Strategy</li>
+<li>💻 Mobile-First Website Development</li>
+<li>📱 Social Media Management</li>
+<li>🤖 AI-Ready Integration & Automation</li>
+<li>💬 One-to-One Consultancy</li>
+</ul>
+<p>We tailor every package to your goals — no generic bundles here.</p>
+</div>
+</div>
+
+<div class="faq-item">
+<button class="faq-question" onclick="toggleFaq(this)">
+<span>Who do you work with?</span>
+<span class="faq-icon">+</span>
+</button>
+<div class="faq-answer">
+<p>Everyone with ambition! From brand-new startups to multi-million pound companies, public figures, and elected representatives. The one thing all our clients share? A desire to stand out and grow.</p>
+</div>
+</div>
+</div>
+
+<!-- CATEGORY 2: HOW WE WORK -->
+<div class="faq-category">
+<h2>How We Work</h2>
+
+<div class="faq-item">
+<button class="faq-question" onclick="toggleFaq(this)">
+<span>Are you a typical 9-to-5 agency?</span>
+<span class="faq-icon">+</span>
+</button>
+<div class="faq-answer">
+<p><strong>Absolutely not.</strong> Deadlines don't stick to office hours and neither do we. When you need us — evening updates, quick weekend checks, urgent tweaks — we’re here. Flexible availability means your project moves at <em>your</em> pace, not ours.</p>
+</div>
+</div>
+
+<div class="faq-item">
+<button class="faq-question" onclick="toggleFaq(this)">
+<span>How long does a project take?</span>
+<span class="faq-icon">+</span>
+</button>
+<div class="faq-answer">
+<p>It depends on scope, but here’s a rough guide:</p>
+<ul>
+<li>Brand identity: 2–4 weeks</li>
+<li>Standard website: 3–6 weeks</li>
+<li>Complex / AI-integrated site: 6–10 weeks</li>
+<li>Ongoing SEO & social: Monthly rolling plans</li>
+</ul>
+<p>We’ll give you a clear timeline <em>before</em> we start — and stick to it.</p>
+</div>
+</div>
+
+<div class="faq-item">
+<button class="faq-question" onclick="toggleFaq(this)">
+<span>Do I own my website & content?</span>
+<span class="faq-icon">+</span>
+</button>
+<div class="faq-answer">
+<p><strong>100% — yes.</strong> No lock-in, no hidden ownership tricks. Your domain, your files, your content — fully yours. If you ever want to move on, everything transfers cleanly. We build long-term relationships on trust, not holding your site hostage.</p>
+</div>
+</div>
+</div>
+
+<!-- CATEGORY 3: AI & TECHNOLOGY -->
+<div class="faq-category">
+<h2>AI & Technology</h2>
+
+<div class="faq-item">
+<button class="faq-question" onclick="toggleFaq(this)">
+<span>Do you use AI — and will it replace my team?</span>
+<span class="faq-icon">+</span>
+</button>
+<div class="faq-answer">
+<p><strong>Great question — and absolutely not.</strong> We use AI as a powerful tool to speed things up, spot patterns, and handle repetitive work — but <em>every</em> decision, design, and word is human-reviewed and refined.</p>
+<p>Think of AI as our turbocharger — it makes us faster and sharper, but we’re still the ones driving.</p>
+</div>
+</div>
+
+<div class="faq-item">
+<button class="faq-question" onclick="toggleFaq(this)">
+<span>Which AI tools do you use?</span>
+<span class="faq-icon">+</span>
+</button>
+<div class="faq-answer">
+<p>We work with the best systems for each task — including Dola, Claude, ChatGPT & OpenAI, plus emerging tools. We don't just use one — we pick the right tool for your specific project, always with ethics, accuracy, and privacy in mind.</p>
+</div>
+</div>
+
+<div class="faq-item">
+<button class="faq-question" onclick="toggleFaq(this)">
+<span>Will my website be fast and mobile-friendly?</span>
+<span class="faq-icon">+</span>
+</button>
+<div class="faq-answer">
+<p><strong>It’s non-negotiable.</strong> Every site we build is:</p>
+<ul>
+<li>📱 Mobile-first — designed for phones first, desktops second</li>
+<li>⚡ Lightning-fast — optimised images, clean code</li>
+<li>🔍 SEO-ready — built to rank well from day one</li>
+<li>♿ Accessible — usable by everyone</li>
+</ul>
+</div>
+</div>
+</div>
+
+<!-- CATEGORY 4: INVESTMENT & NEXT STEPS -->
+<div class="faq-category">
+<h2>Pricing & Getting Started</h2>
+
+<div class="faq-item">
+<button class="faq-question" onclick="toggleFaq(this)">
+<span>How much does it cost?</span>
+<span class="faq-icon">+</span>
+</button>
+<div class="faq-answer">
+<p>Because every project is unique, we don't do one-size-fits-all pricing. But we <em>do</em> offer:</p>
+<ul>
+<li>✅ Transparent, fixed quotes — no hidden extras</li>
+<li>✅ Flexible payment plans available</li>
+<li>✅ One-off builds or monthly retainers</li>
+<li>✅ Free initial consultation — no obligation</li>
+</ul>
+<p>We’ll craft a proposal that fits your goals <em>and</em> your budget.</p>
+</div>
+</div>
+
+<div class="faq-item">
+<button class="faq-question" onclick="toggleFaq(this)">
+<span>Do you offer a free consultation?</span>
+<span class="faq-icon">+</span>
+</button>
+<div class="faq-answer">
+<p><strong>Yes — absolutely.</strong> Book a no-obligation chat and we’ll:</p>
+<ul>
+<li>✅ Listen to your goals & challenges</li>
+<li>✅ Give honest feedback & ideas</li>
+<li>✅ Outline a clear path forward</li>
+<li>✅ Never pressure you to sign up</li>
+</ul>
+<p>Even if you don't work with us, you'll walk away with fresh clarity.</p>
+</div>
+</div>
+
+<div class="faq-item">
+<button class="faq-question" onclick="toggleFaq(this)">
+<span>What if I don't know what I need yet?</span>
+<span class="faq-icon">+</span>
+</button>
+<div class="faq-answer">
+<p><strong>That’s completely normal — and that’s what we’re here for.</strong> Many clients come to us knowing they want to grow but unsure of the exact steps. We’ll guide you, explain everything simply, and build a plan together. No jargon, no confusion — just clear, confident next steps.</p>
+</div>
+</div>
+</div>
+
+</div>
+</section>
+
+<!-- STILL HAVE QUESTIONS BANNER -->
+<section class="faq-cta">
+<div class="container">
+<h2>Still Have Questions?</h2>
+<p>We’re here to answer them — no question is too small. Drop us a message and we’ll get back to you personally.</p>
+<a href="contact.html" class="btn primary-btn large-btn">Ask Us Anything →</a>
+</div>
+</section>
+
+</main>
+
+<!-- TOGGLE SCRIPT -->
+<script>
+function toggleFaq(button) {
+const answer = button.nextElementSibling;
+const icon = button.querySelector('.faq-icon');
+
+// Close others
+document.querySelectorAll('.faq-item').forEach(item => {
+if (item !== button.parentElement) {
+item.classList.remove('open');
+item.querySelector('.faq-answer').style.maxHeight = null;
+item.querySelector('.faq-icon').textContent = '+';
+}
+});
+
+// Toggle current
+button.parentElement.classList.toggle('open');
+if (button.parentElement.classList.contains('open')) {
+answer.style.maxHeight = answer.scrollHeight + 'px';
+icon.textContent = '−';
+} else {
+answer.style.maxHeight = null;
+icon.textContent = '+';
+}
+}
+</script>
+
 <script>
 fetch('includes/header.html')
 .then(res => res.text())
 .then(html => {
 document.getElementById('header-container').innerHTML = html;
-const path = window.location.pathname.split('/').pop() || 'index.html';
-const pageId = path.replace('.html', '');
-const activeLink = document.getElementById(`nav-${pageId}`);
+const activeLink = document.getElementById('nav-faq');
 if (activeLink) activeLink.classList.add('active');
 });
 </script>
-
-<main class="page-content">
-<div class="page-header">
-<h1>FAQ</h1>
-<p class="page-subtitle">Future-proof digital solutions powered by intelligent automation.</p>
-</div>
-<div class="container" style="padding: 3rem 1.5rem; text-align: center;">
-<p style="color: #64748b; font-size: 1.1rem;">Full content coming soon — we're building something amazing here.</p>
-<a href="index.html" style="display: inline-block; margin-top: 2rem; color: #7B2FFD; font-weight: 600;">← Back to Home</a>
-</div>
-</main>
 
 </body>
 </html>
