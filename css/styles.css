@@ -1159,5 +1159,341 @@ margin-bottom: 30px;
     .center-heading {
     font-size: 1.6rem;
     }
+    }/* ===== AI READY PAGE — FUTURE-FOCUSED STYLING ===== */
+.ai-hero {
+    background: linear-gradient(135deg, #4F46E5 0%, #7B2FFD 50%, #EC4899 100%);
+    color: white;
+    padding: 80px 24px 100px;
+    text-align: center;
+    margin-top: 70px;
+    position: relative;
+    overflow: hidden;
+    }
+    
+    .ai-hero::before,
+    .ai-hero::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+    }
+    
+    .ai-hero::before {
+    width: 400px;
+    height: 400px;
+    top: -100px;
+    left: -100px;
+    animation: orbit 12s infinite linear;
+    }
+    
+    .ai-hero::after {
+    width: 300px;
+    height: 300px;
+    bottom: -50px;
+    right: -50px;
+    animation: orbit 15s infinite linear reverse;
+    }
+    
+    @keyframes orbit {
+    0% { transform: rotate(0deg) translateX(30px) rotate(0deg); }
+    100% { transform: rotate(360deg) translateX(30px) rotate(-360deg); }
+    }
+    
+    .ai-hero .container {
+    position: relative;
+    z-index: 1;
+    }
+    
+    .ai-hero .eyebrow {
+    display: inline-block;
+    background: rgba(255,255,255,0.2);
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin-bottom: 20px;
+    backdrop-filter: blur(6px);
+    }
+    
+    .ai-hero h1 {
+    font-size: 3rem;
+    line-height: 1.15;
+    margin: 0 0 20px;
+    }
+    
+    .ai-hero h1 em {
+    font-style: normal;
+    background: linear-gradient(90deg, #fff, #DDD6FE);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    }
+    
+    .ai-hero .subhead {
+    font-size: 1.2rem;
+    max-width: 700px;
+    margin: 0 auto 32px;
+    opacity: 0.92;
+    line-height: 1.6;
+    }
+    
+    /* PHILOSOPHY & BALANCE */
+    .ai-philosophy {
+    padding: 80px 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+    }
+    
+    .ai-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 50px;
+    align-items: center;
+    }
+    
+    .ai-text h2 {
+    font-size: 2rem;
+    color: #1e293b;
+    margin: 0 0 20px;
+    }
+    
+    .ai-text p {
+    color: #64748b;
+    font-size: 1.05rem;
+    line-height: 1.7;
+    margin-bottom: 18px;
+    }
+    
+    .balance-box {
+    display: flex;
+    gap: 24px;
+    background: linear-gradient(135deg, #F5F3FF, #FAF5FF);
+    padding: 28px;
+    border-radius: 16px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+    }
+    
+    .balance-item {
+    flex: 1;
+    min-width: 200px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    }
+    
+    .balance-icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+    }
+    
+    .balance-item strong {
+    display: block;
+    color: #4C1D95;
+    margin-bottom: 4px;
+    }
+    
+    .balance-item p {
+    margin: 0;
+    font-size: 0.95rem;
+    color: #6D28D9;
+    }
+    
+    .balance-divider {
+    width: 2px;
+    background: #DDD6FE;
+    }
+    
+    .ai-visual {
+    display: flex;
+    justify-content: center;
+    }
+    
+    .ai-glow-card {
+    background: linear-gradient(135deg, #7B2FFD, #6366F1);
+    color: white;
+    padding: 45px 35px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(123, 47, 253, 0.25);
+    transition: transform 0.3s ease;
+    max-width: 360px;
+    }
+    
+    .ai-glow-card:hover {
+    transform: translateY(-6px);
+    }
+    
+    .ai-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.2);
+    padding: 6px 16px;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    margin-bottom: 16px;
+    }
+    
+    .ai-glow-card h3 {
+    font-size: 1.6rem;
+    margin: 0 0 12px;
+    line-height: 1.2;
+    }
+    
+    .ai-glow-card p {
+    opacity: 0.9;
+    margin: 0;
+    }
+    
+    /* PLATFORMS GRID */
+    .ai-platforms {
+    background: #F8FAFC;
+    padding: 80px 24px;
+    }
+    
+    .ai-platforms .container {
+    max-width: 1240px;
+    margin: 0 auto;
+    }
+    
+    .section-intro {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto 50px;
+    }
+    
+    .section-intro h2 {
+    font-size: 2rem;
+    color: #1e293b;
+    margin: 0 0 12px;
+    }
+    
+    .section-intro p {
+    color: #64748b;
+    font-size: 1.05rem;
+    }
+    
+    .platforms-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 30px;
+    }
+    
+    .platform-card {
+    background: white;
+    border-radius: 16px;
+    padding: 32px;
+    border: 1px solid #E2E8F0;
+    transition: all 0.35s ease;
+    }
+    
+    .platform-card:hover {
+    border-color: #7B2FFD;
+    transform: translateY(-6px);
+    box-shadow: 0 12px 28px rgba(123, 47, 253, 0.12);
+    }
+    
+    .platform-icon {
+    font-size: 2.2rem;
+    margin-bottom: 15px;
+    }
+    
+    .platform-card h3 {
+    font-size: 1.25rem;
+    color: #1e293b;
+    margin: 0 0 10px;
+    }
+    
+    .platform-card p {
+    color: #64748b;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin: 0 0 16px;
+    }
+    
+    .platform-features {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    }
+    
+    .platform-features li {
+    padding: 6px 0;
+    color: #334155;
+    font-size: 0.9rem;
+    }
+    
+    /* BENEFITS GRID */
+    .ai-benefits {
+    padding: 80px 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+    }
+    
+    .center-heading {
+    text-align: center;
+    font-size: 2rem;
+    color: #1e293b;
+    margin: 0 0 50px;
+    }
+    
+    .benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    }
+    
+    .benefit-card {
+    background: white;
+    border: 1px solid #E2E8F0;
+    border-radius: 16px;
+    padding: 32px;
+    transition: all 0.3s ease;
+    }
+    
+    .benefit-card:hover {
+    border-color: #7B2FFD;
+    transform: translateY(-5px);
+    box-shadow: 0 12px 28px rgba(123, 47, 253, 0.1);
+    }
+    
+    .benefit-icon {
+    font-size: 2rem;
+    margin-bottom: 15px;
+    }
+    
+    .benefit-card h3 {
+    font-size: 1.15rem;
+    color: #1e293b;
+    margin: 0 0 10px;
+    }
+    
+    .benefit-card p {
+    color: #64748b;
+    line-height: 1.6;
+    margin: 0;
+    }
+    
+    /* MOBILE RESPONSIVE */
+    @media (max-width: 900px) {
+    .ai-hero h1 {
+    font-size: 2rem;
+    }
+    .ai-grid {
+    grid-template-columns: 1fr;
+    }
+    .balance-box {
+    flex-direction: column;
+    }
+    .balance-divider {
+    width: 100%;
+    height: 2px;
+    }
+    .platforms-grid,
+    .benefits-grid {
+    grid-template-columns: 1fr;
+    }
+    .center-heading {
+    font-size: 1.6rem;
+    }
     }
     
