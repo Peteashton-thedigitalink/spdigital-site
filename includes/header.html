@@ -2,14 +2,23 @@
 SHARED HEADER / FIXED NAVIGATION
 Edit this file → Updates ALL pages automatically!
 ============================================== -->
-<nav class="main-nav">
-    <div class="nav-container">
+<!-- HEADER :: SP Digital Consultants -->
+<header class="site-header">
+    <div class="container header-inner">
     <!-- Logo -->
-    <a href="index.html" class="logo">
-        <img src="images/sp-digital-logo-2026.PNG" alt="SP Digital Consultants" class="logo-img">
-        </a>   
+    <a href="index.html" class="brand-logo">
+    <img src="images/sp-digital-logo-2026.png" alt="SP Digital Consultants" class="logo-img">
+    </a>
     
-    <!-- Navigation Links -->
+    <!-- Mobile Toggle Button -->
+    <button class="menu-toggle" aria-label="Toggle menu">
+    <span></span>
+    <span></span>
+    <span></span>
+    </button>
+    
+    <!-- Navigation Menu -->
+    <nav class="main-nav">
     <ul class="nav-links">
     <li><a href="index.html" id="nav-home">Home</a></li>
     <li><a href="what-we-do.html" id="nav-what-we-do">What We Do</a></li>
@@ -18,7 +27,44 @@ Edit this file → Updates ALL pages automatically!
     <li><a href="ai-ready.html" id="nav-ai-ready">AI Ready</a></li>
     <li><a href="latest-news.html" id="nav-latest-news">Latest News</a></li>
     <li><a href="faq.html" id="nav-faq">FAQ</a></li>
-    <li><a href="contact.html" id="nav-contact" class="nav-cta">Contact Us</a></li>
+    <li><a href="free-website.html" id="nav-free-website">Free AI Website</a></li>
+    <li><a href="contact.html" class="nav-cta" id="nav-contact">Contact Us</a></li>
     </ul>
-    </div>
     </nav>
+    </div>
+    </header>
+    <!-- Mobile Menu Script -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    const toggle = document.querySelector('.menu-toggle');
+    const nav = document.querySelector('.main-nav');
+    
+    // Create overlay element
+    const overlay = document.createElement('div');
+    overlay.className = 'menu-overlay';
+    document.body.appendChild(overlay);
+    
+    // Toggle menu
+    toggle.addEventListener('click', function() {
+    nav.classList.toggle('active');
+    overlay.classList.toggle('active');
+    document.body.style.overflow = nav.classList.contains('active') ? 'hidden' : '';
+    });
+    
+    // Close when clicking overlay
+    overlay.addEventListener('click', function() {
+    nav.classList.remove('active');
+    overlay.classList.remove('active');
+    document.body.style.overflow = '';
+    });
+    
+    // Close when clicking a link
+    nav.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', function() {
+    nav.classList.remove('active');
+    overlay.classList.remove('active');
+    document.body.style.overflow = '';
+    });
+    });
+    });
+    </script>
