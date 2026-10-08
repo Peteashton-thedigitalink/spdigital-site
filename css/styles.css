@@ -2157,5 +2157,82 @@ margin-bottom: 30px;
     .footer-grid {
     grid-template-columns: 1fr;
     }
+    }/* ===== HIDE HUBSPOT BRANDING & POWERED BY LINK ===== */
+.hubspot-form-wrapper .hs-form-powered-by,
+.hubspot-form-wrapper .hs-form-footer,
+.hubspot-form-wrapper a[href*="hubspot.com"] {
+display: none !important;
+visibility: hidden !important;
+opacity: 0 !important;
+height: 0 !important;
+overflow: hidden !important;
+pointer-events: none !important;
+}/* ===== HUBSPOT FORM STYLING — MATCH YOUR SITE ===== */
+.hubspot-form-wrapper {
+    width: 100%;
     }
+    
+    .hubspot-form-wrapper .hs-form {
+    width: 100%;
+    }
+    
+    .hubspot-form-wrapper .hs-field {
+    margin-bottom: 20px;
+    }
+    
+    .hubspot-form-wrapper label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #334155;
+    font-size: 0.95rem;
+    }
+    
+    .hubspot-form-wrapper .hs-input {
+    width: 100% !important;
+    padding: 12px 16px !important;
+    border: 2px solid #e2e8f0 !important;
+    border-radius: 8px !important;
+    font-size: 1rem !important;
+    font-family: inherit !important;
+    box-sizing: border-box !important;
+    }
+    
+    .hubspot-form-wrapper .hs-input:focus {
+    outline: none !important;
+    border-color: #7B2FFD !important;
+    box-shadow: 0 0 0 3px rgba(123, 47, 253, 0.15) !important;
+    }
+    
+    .hubspot-form-wrapper .hs-button {
+    background: linear-gradient(135deg, #7B2FFD, #6366F1) !important;
+    color: white !important;
+    border: none !important;
+    padding: 14px 28px !important;
+    border-radius: 8px !important;
+    font-size: 1rem !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    width: 100% !important;
+    transition: transform 0.2s ease !important;
+    }
+    
+    .hubspot-form-wrapper .hs-button:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 18px rgba(123, 47, 253, 0.3) !important;
+    }
+    
+    .hubspot-form-wrapper .error-message {
+    color: #dc2626 !important;
+    font-size: 0.9rem !important;
+    margin-top: 6px !important;
+    }
+    
+    .hubspot-form-wrapper .submitted-message {
+    text-align: center !important;
+    padding: 30px !important;
+    color: #065F46 !important;
+    font-size: 1.1rem !important;
+    }
+    
     
