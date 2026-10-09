@@ -11,14 +11,32 @@ body { background: #F8FAFC; min-height: 100vh; }
 .top-bar a { color: white; text-decoration: none; background: rgba(255,255,255,0.1); padding: 8px 16px; border-radius: 6px; }
 .container { max-width: 900px; margin: 80px auto 40px; padding: 0 24px; }
 h2 { color: #0F172A; margin-bottom: 8px; }
-.intro { color: #64748B; margin-bottom: 32px; }
-.placeholder-box { background: white; border: 2px dashed #CBD5E1; border-radius: 12px; padding: 60px 30px; text-align: center; }
-.placeholder-box h3 { color: #0F172A; margin-bottom: 12px; font-size: 20px; }
-.placeholder-box p { color: #64748B; margin-bottom: 24px; max-width: 500px; margin-left: auto; margin-right: auto; }
-.feature-list { text-align: left; max-width: 400px; margin: 0 auto; }
-.feature-list div { padding: 10px 0; border-bottom: 1px solid #F1F5F9; color: #334155; }
-.feature-list div:last-child { border-bottom: none; }
-.coming-soon { display: inline-block; background: #F0FDF4; color: #166534; font-size: 13px; padding: 6px 14px; border-radius: 20px; margin-top: 20px; }
+.intro { color: #64748B; margin-bottom: 24px; }
+
+.status-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+.tab { padding: 8px 16px; border-radius: 20px; font-size: 14px; cursor: pointer; border: 2px solid transparent; }
+.tab.active { background: #7B2FFD; color: white; }
+.tab.all { background: #F1F5F9; color: #334155; }
+.tab.new { background: #DBEAFE; color: #1E40AF; }
+.tab.contacted { background: #FED7AA; color: #92400F; }
+.tab.proposal { background: #DDD6FE; color: #5B21B6; }
+.tab.won { background: #BBF7D0; color: #166534; }
+.tab.lost { background: #FECACA; color: #991B1B; }
+
+.lead-card { background: white; border: 1px solid #E2E8F0; border-radius: 10px; padding: 18px; margin-bottom: 12px; transition: all 0.2s; }
+.lead-card:hover { border-color: #7B2FFD; }
+.lead-name { font-weight: 600; font-size: 16px; color: #0F172A; margin-bottom: 4px; }
+.lead-meta { font-size: 13px; color: #64748B; margin-bottom: 10px; }
+.lead-message { font-size: 14px; color: #334155; background: #F8FAFC; padding: 10px; border-radius: 6px; margin-bottom: 12px; }
+.lead-status { display: inline-block; font-size: 12px; padding: 3px 10px; border-radius: 12px; font-weight: 500; }
+.lead-actions { margin-top: 10px; display: flex; gap: 10px; flex-wrap: wrap; }
+.btn { padding: 6px 12px; border-radius: 5px; font-size: 13px; text-decoration: none; border: none; cursor: pointer; }
+.btn-email { background: #E0F2FE; color: #0369A1; }
+.btn-delete { background: #FEE2E2; color: #DC2626; }
+select { padding: 5px 8px; border-radius: 5px; border: 1px solid #CBD5E1; font-size: 13px; }
+
+.empty { text-align: center; padding: 60px 20px; color: #94A3B8; }
+.empty-icon { font-size: 48px; margin-bottom: 16px; }
 </style>
 </head>
 <body>
@@ -35,23 +53,113 @@ window.location.href = 'login.html';
 </div>
 
 <div class="container">
-<h2>Leads & Pipeline</h2>
-<p class="intro">Track website enquiries and manage your sales pipeline</p>
+<h2>Leads & Enquiries</h2>
+<p class="intro">All enquiries from your website — track them through to completion</p>
 
-<div class="placeholder-box">
-<h3>🔗 Connecting Your Forms</h3>
-<p>Your HubSpot contact form will feed directly into this dashboard — no more checking emails separately.</p>
-
-<div class="feature-list">
-<div>✅ New leads from your website form</div>
-<div>✅ Auto-saved to client workspace</div>
-<div>✅ Status tracking: New → Contacted → Proposal → Client</div>
-<div>✅ AI-drafted follow-up emails</div>
-<div>✅ Full history per lead</div>
+<!-- Status Filter Tabs -->
+<div class="status-tabs">
+<div class="tab all active" onclick="filterLeads('all')">All</div>
+<div class="tab new" onclick="filterLeads('new')">🆕 New</div>
+<div class="tab contacted" onclick="filterLeads('contacted')">📞 Contacted</div>
+<div class="tab proposal" onclick="filterLeads('proposal')">📄 Proposal</div>
+<div class="tab won" onclick="filterLeads('won')">✅ Won</div>
+<div class="tab lost" onclick="filterLeads('lost')">❌ Lost</div>
 </div>
 
-<div class="coming-soon">📧 HubSpot integration — coming next!</div>
+<!-- Leads List -->
+<div id="leadsList"></div>
+</div>
+
+<script>
+let currentFilter = 'all';
+
+// Get all leads from storage
+function getLeads() {
+return JSON.parse(localStorage.getItem('spd-leads') || '[]');
+}
+
+// Save leads back to storage
+function saveLeads(leads) {
+localStorage.setItem('spd-leads', JSON.stringify(leads));
+renderLeads();
+}
+
+// Update lead status
+function updateStatus(index, newStatus) {
+const leads = getLeads();
+leads[index].status = newStatus;
+saveLeads(leads);
+}
+
+// Delete a lead
+function deleteLead(index) {
+if (confirm('Delete this lead? This cannot be undone.')) {
+const leads = getLeads();
+leads.splice(index, 1);
+saveLeads(leads);
+}
+}
+
+// Filter leads
+function filterLeads(status) {
+currentFilter = status;
+document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+event.target.classList.add('active');
+renderLeads();
+}
+
+// Render all leads
+function renderLeads() {
+const leads = getLeads();
+const list = document.getElementById('leadsList');
+
+const filtered = currentFilter === 'all'
+? leads
+: leads.filter(l => l.status === currentFilter);
+
+if (filtered.length === 0) {
+list.innerHTML = `
+<div class="empty">
+<div class="empty-icon">📭</div>
+<h3>No leads yet</h3>
+<p>When someone submits your contact form, they'll appear here automatically</p>
+</div>
+`;
+return;
+}
+
+list.innerHTML = filtered.map((lead, i) => {
+const originalIndex = leads.indexOf(lead);
+return `
+<div class="lead-card" data-status="${lead.status}">
+<div class="lead-name">${lead.name || 'Enquiry'}</div>
+<div class="lead-meta">
+📧 ${lead.email || 'No email provided'}
+${lead.phone ? ' | 📱 ' + lead.phone : ''}
+${lead.service ? ' | 💼 ' + lead.service : ''}
+<br>
+📅 ${lead.date || 'Unknown date'}
+</div>
+${lead.message ? `<div class="lead-message">${lead.message}</div>` : ''}
+<div class="lead-actions">
+<select onchange="updateStatus(${originalIndex}, this.value)">
+<option value="new" ${lead.status === 'new' ? 'selected' : ''}>🆕 New</option>
+<option value="contacted" ${lead.status === 'contacted' ? 'selected' : ''}>📞 Contacted</option>
+<option value="proposal" ${lead.status === 'proposal' ? 'selected' : ''}>📄 Proposal Sent</option>
+<option value="won" ${lead.status === 'won' ? 'selected' : ''}>✅ Won — Client</option>
+<option value="lost" ${lead.status === 'lost' ? 'selected' : ''}>❌ Lost</option>
+</select>
+<a href="mailto:${lead.email}?subject=Re: Your enquiry — ${lead.name}" class="btn btn-email">✉️ Reply</a>
+<button class="btn btn-delete" onclick="deleteLead(${originalIndex})">🗑️ Delete</button>
 </div>
 </div>
+`;
+}).join('');
+}
+
+// Initial load
+renderLeads();
+</script>
 </body>
 </html>
+

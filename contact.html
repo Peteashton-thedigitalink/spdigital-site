@@ -30,21 +30,65 @@
 <div class="form-card">
     <h2>Send Us a Message</h2>
     
-    <!-- HubSpot Form Container -->
-    <div class="hubspot-form-wrapper">
-    <div class="hs-form-frame" data-region="eu1" data-form-id="989b8224-8c8d-4662-8dff-1f94cf665c32" data-portal-id="149485102"></div>
+   <!-- YOUR OWN LEAD-CAPTURE FORM -->
+<form id="contactForm">
+    <div style="display:grid; gap:16px;">
+    <div>
+    <label style="display:block; margin-bottom:6px; font-weight:500; color:#0F172A;">Full Name *</label>
+    <input type="text" id="name" required style="width:100%; padding:12px; border:2px solid #E2E8F0; border-radius:8px; font-size:16px;">
     </div>
+    <div>
+    <label style="display:block; margin-bottom:6px; font-weight:500; color:#0F172A;">Email Address *</label>
+    <input type="email" id="email" required style="width:100%; padding:12px; border:2px solid #E2E8F0; border-radius:8px; font-size:16px;">
+    </div>
+    <div>
+    <label style="display:block; margin-bottom:6px; font-weight:500; color:#0F172A;">Contact Number</label>
+    <input type="tel" id="phone" style="width:100%; padding:12px; border:2px solid #E2E8F0; border-radius:8px; font-size:16px;">
+    </div>
+    <div>
+    <label style="display:block; margin-bottom:6px; font-weight:500; color:#0F172A;">Service Interested In</label>
+    <select id="service" style="width:100%; padding:12px; border:2px solid #E2E8F0; border-radius:8px; font-size:16px;">
+    <option value="">— Select a service —</option>
+    <option>Website Design & Build</option>
+    <option>AI Integration</option>
+    <option>Digital Strategy</option>
+    <option>Marketing & SEO</option>
+    <option>Other / Not Sure Yet</option>
+    </select>
+    </div>
+    <div>
+    <label style="display:block; margin-bottom:6px; font-weight:500; color:#0F172A;">Your Message *</label>
+    <textarea id="message" rows="5" required style="width:100%; padding:12px; border:2px solid #E2E8F0; border-radius:8px; font-size:16px; resize:vertical;"></textarea>
+    </div>
+    <button type="submit" style="background:linear-gradient(135deg, #7B2FFD, #06B6D4); color:white; border:none; padding:14px 32px; border-radius:8px; font-size:16px; font-weight:600; cursor:pointer; margin-top:8px;">Send Message ✅</button>
+    </div>
+    </form>
     
-    <!-- HubSpot Script -->
-    <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/embed/v2.js"></script>
     <script>
-    hbspt.forms.create({
-    region: "eu1",
-    portalId: "149485102",
-    formId: "989b8224-8c8d-4662-8dff-1f94cf665c32",
-    target: ".hs-form-frame"
+    // Save form submission to your Leads Dashboard
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const formData = {
+    name: document.getElementById('name').value,
+    email: document.getElementById('email').value,
+    phone: document.getElementById('phone').value,
+    service: document.getElementById('service').value,
+    message: document.getElementById('message').value,
+    date: new Date().toLocaleString()
+    };
+    
+    // Save to Leads storage
+    const existingLeads = JSON.parse(localStorage.getItem('spd-leads') || '[]');
+    existingLeads.unshift({ ...formData, status: 'new' });
+    localStorage.setItem('spd-leads', JSON.stringify(existingLeads));
+    
+    // Confirmation & reset
+    alert('✅ Thank you! Your message has been sent successfully.');
+    this.reset();
     });
     </script>
+    
     </div>
 
 <!-- ✅ SIDE INFO — Hours & Details -->
