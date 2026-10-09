@@ -59,20 +59,20 @@ list.innerHTML = `
 return;
 }
 
-list.innerHTML = clients.map((c, i) => `
-<div class="client-card">
-<div class="client-name">
-${c.name || 'Unnamed Client'}
-${c.aiNeeded === 'yes' ? '<span class="ai-badge">🤖 AI Enabled</span>' : ''}
+list.innerHTML = clients.map((client, i) => `
+<div style="background:white; border:1px solid #E2E8F0; border-radius:12px; padding:20px; margin-bottom:16px; transition:all 0.2s;">
+<div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:12px;">
+<h3 style="font-size:18px; color:#0F172A; margin:0;">${client.name || 'Unnamed Client'}</h3>
+${client.aiNeeded === 'yes' ? '<span style="background:#E0F2FE; color:#0369A1; font-size:11px; padding:2px 8px; border-radius:10px;">AI</span>' : ''}
 </div>
-<div class="client-meta">
-${c.contact ? 'Contact: ' + c.contact : ''}
-${c.budget ? ' | Budget: ' + c.budget : ''}
-${c.dateCreated ? ' | Added: ' + c.dateCreated : ''}
-</div>
-<div class="actions">
-<a href="#" onclick="viewClient(${i})">📄 View/Edit</a>
-<a href="#" onclick="deleteClient(${i})" style="color:#EF4444;">🗑️ Delete</a>
+<p style="font-size:13px; color:#64748B; margin-bottom:8px;">
+📅 ${client.dateCreated || 'Unknown date'}
+${client.budget ? ` • 💰 ${client.budget}` : ''}
+</p>
+<p style="font-size:14px; color:#475569; margin-bottom:16px;">${client.needs || 'No description yet'}</p>
+<div style="display:flex; gap:10px;">
+<a href="client-view.html?index=${i}" style="background:linear-gradient(135deg, #7B2FFD, #06B6D4); color:white; padding:8px 16px; border-radius:6px; text-decoration:none; font-size:14px; font-weight:500;">📋 Open Workspace</a>
+<a href="#" onclick="deleteClient(${i})" style="color:#EF4444; padding:8px 12px; text-decoration:none; font-size:14px;">🗑️ Delete</a>
 </div>
 </div>
 `).join('');
