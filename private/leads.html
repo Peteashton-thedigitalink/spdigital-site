@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leads & Pipeline — SP Digital</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: system-ui, sans-serif; }
+body { background: #F8FAFC; min-height: 100vh; }
+.top-bar { background: linear-gradient(135deg, #0F172A, #1E293B); color: white; padding: 16px 24px; position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; }
+.top-bar a { color: white; text-decoration: none; background: rgba(255,255,255,0.1); padding: 8px 16px; border-radius: 6px; }
+.container { max-width: 900px; margin: 80px auto 40px; padding: 0 24px; }
+h2 { color: #0F172A; margin-bottom: 8px; }
+.intro { color: #64748B; margin-bottom: 32px; }
+.placeholder-box { background: white; border: 2px dashed #CBD5E1; border-radius: 12px; padding: 60px 30px; text-align: center; }
+.placeholder-box h3 { color: #0F172A; margin-bottom: 12px; font-size: 20px; }
+.placeholder-box p { color: #64748B; margin-bottom: 24px; max-width: 500px; margin-left: auto; margin-right: auto; }
+.feature-list { text-align: left; max-width: 400px; margin: 0 auto; }
+.feature-list div { padding: 10px 0; border-bottom: 1px solid #F1F5F9; color: #334155; }
+.feature-list div:last-child { border-bottom: none; }
+.coming-soon { display: inline-block; background: #F0FDF4; color: #166534; font-size: 13px; padding: 6px 14px; border-radius: 20px; margin-top: 20px; }
+</style>
+</head>
+<body>
+<script>
+if (localStorage.getItem('spd-auth') !== 'granted') {
+window.location.href = 'login.html';
+}
+</script>
+
+<div class="top-bar">
+<a href="dashboard.html">← Back</a>
+<h1>📊 Leads & Pipeline</h1>
+<span></span>
+</div>
+
+<div class="container">
+<h2>Leads & Pipeline</h2>
+<p class="intro">Track website enquiries and manage your sales pipeline</p>
+
+<div class="placeholder-box">
+<h3>🔗 Connecting Your Forms</h3>
+<p>Your HubSpot contact form will feed directly into this dashboard — no more checking emails separately.</p>
+
+<div class="feature-list">
+<div>✅ New leads from your website form</div>
+<div>✅ Auto-saved to client workspace</div>
+<div>✅ Status tracking: New → Contacted → Proposal → Client</div>
+<div>✅ AI-drafted follow-up emails</div>
+<div>✅ Full history per lead</div>
+</div>
+
+<div class="coming-soon">📧 HubSpot integration — coming next!</div>
+</div>
+</div>
+</body>
+</html>
