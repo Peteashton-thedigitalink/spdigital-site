@@ -2634,6 +2634,35 @@ html, body {
     z-index: 1000 !important;
     }
     }
+    /* ===== MOBILE MENU — CLEAN FIX ===== */
+    html, body {
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+    }
+    
+    @media (max-width: 768px) {
+    /* Hide menu off-screen by default */
+    .nav-links {
+    position: fixed;
+    top: 0;
+    right: -100%; /* Start completely off-screen */
+    width: 260px;
+    height: 100vh;
+    background: #ffffff;
+    box-shadow: -3px 0 15px rgba(0,0,0,0.08);
+    flex-direction: column;
+    padding: 60px 25px;
+    gap: 20px;
+    transition: right 0.3s ease;
+    z-index: 999;
+    }
+    
+    /* Slide in only when active/toggled */
+    .nav-links.active {
+    right: 0;
+    }
+    }
     
     
     

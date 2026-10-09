@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SP Digital — Back Office</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: system-ui, sans-serif; }
+body { background: linear-gradient(135deg, #0F172A, #1E293B); min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+.login-box { background: white; padding: 40px 30px; border-radius: 16px; box-shadow: 0 10px 40px rgba(0,0,0,0.2); width: 100%; max-width: 400px; }
+h1 { text-align: center; color: #0F172A; margin-bottom: 8px; font-size: 22px; }
+.subtitle { text-align: center; color: #64748B; margin-bottom: 30px; font-size: 14px; }
+input { width: 100%; padding: 14px; margin: 8px 0 16px; border: 2px solid #E2E8F0; border-radius: 8px; font-size: 16px; }
+input:focus { outline: none; border-color: #7B2FFD; }
+button { width: 100%; padding: 14px; background: linear-gradient(135deg, #7B2FFD, #06B6D4); color: white; border: none; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; }
+button:hover { opacity: 0.95; }
+.error { color: #EF4444; margin-top: 12px; text-align: center; display: none; font-size: 14px; }
+</style>
+</head>
+<body>
+<div class="login-box">
+<h1>🔐 SP Digital Back Office</h1>
+<p class="subtitle">Enter password to access</p>
+<input type="password" id="password" placeholder="Enter password">
+<button onclick="login()">Sign In</button>
+<p class="error" id="error">Incorrect password — please try again</p>
+</div>
+
+<script>
+// 🔑 YOUR ONE PASSWORD — CHANGE THIS!
+const ACCESS_PASSWORD = "Thistimenextyear2016";
+
+function login() {
+const input = document.getElementById('password').value;
+if (input === ACCESS_PASSWORD) {
+localStorage.setItem('spd-auth', 'granted');
+window.location.href = 'dashboard.html';
+} else {
+document.getElementById('error').style.display = 'block';
+}
+}
+
+// If already logged in — go straight to dashboard
+if (localStorage.getItem('spd-auth') === 'granted') {
+window.location.href = 'dashboard.html';
+}
+</script>
+</body>
+</html>

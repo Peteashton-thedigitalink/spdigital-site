@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard — SP Digital Back Office</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: system-ui, sans-serif; }
+body { background: #F8FAFC; min-height: 100vh; }
+.top-bar { background: linear-gradient(135deg, #0F172A, #1E293B); color: white; padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; position: fixed; top: 0; left: 0; right: 0; z-index: 100; }
+.top-bar h1 { font-size: 18px; }
+.logout { background: rgba(255,255,255,0.1); padding: 8px 16px; border-radius: 6px; cursor: pointer; border: none; color: white; }
+.logout:hover { background: rgba(255,255,255,0.2); }
+
+.container { max-width: 1200px; margin: 80px auto 40px; padding: 0 24px; }
+.welcome { margin-bottom: 32px; }
+.welcome h2 { font-size: 24px; color: #0F172A; margin-bottom: 4px; }
+.welcome p { color: #64748B; }
+
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+.card { background: white; border-radius: 12px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); border: 1px solid #E2E8F0; cursor: pointer; transition: all 0.2s; }
+.card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(123,47,253,0.1); border-color: #7B2FFD; }
+.card h3 { font-size: 18px; color: #0F172A; margin-bottom: 8px; }
+.card p { font-size: 14px; color: #64748B; line-height: 1.5; }
+.icon { font-size: 28px; margin-bottom: 12px; }
+
+@media (max-width: 640px) {
+.grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<!-- Auth Check -->
+<script>
+if (localStorage.getItem('spd-auth') !== 'granted') {
+window.location.href = 'login.html';
+}
+</script>
+
+<!-- Top Bar -->
+<div class="top-bar">
+<h1>⚡ SP Digital — Command Centre</h1>
+<span>Welcome, <span id="userName">User</span></span>
+<button class="logout" onclick="logout()">Log Out</button>
+</div>
+
+<!-- Main Content -->
+<div class="container">
+<div class="welcome">
+<h2>Everything in one place ✅</h2>
+<p>Assess clients, use AI tools, manage projects — all from here.</p>
+</div>
+
+<div class="grid">
+<!-- Card 1: New Client Assessment -->
+<div class="card" onclick="window.location.href='new-client.html'">
+<div class="icon">📋</div>
+<h3>New Client Assessment</h3>
+<p>Assess a new client — needs, goals, budget, timeline, AI requirements</p>
+</div>
+
+<!-- Card 2: All Clients -->
+<div class="card" onclick="window.location.href='clients.html'">
+<div class="icon">👥</div>
+<h3>Client Workspaces</h3>
+<p>View all clients — their AI projects, files, notes, and deliverables</p>
+</div>
+
+<!-- Card 3: AI Tools -->
+<div class="card" onclick="window.location.href='ai-chat.html'">
+<div class="icon">🤖</div>
+<h3>AI Command Centre</h3>
+<p>GPT-4o, Claude, DALL-E — one interface. Save, share, download results</p>
+</div>
+
+<!-- Card 4: Quick Notes -->
+<div class="card" onclick="alert('Coming next — CRM & Lead Tracker connected to your website form!')">
+<div class="icon">📊</div>
+<h3>Leads & Pipeline</h3>
+<p>Website enquiries → auto-logged → track to completion</p>
+</div>
+</div>
+</div>
+
+<script>
+// Show which user is logged in
+document.getElementById('userName').textContent = localStorage.getItem('spd-user') || 'User';
+
+function logout() {
+localStorage.removeItem('spd-auth');
+localStorage.removeItem('spd-user');
+window.location.href = 'login.html';
+}
+</script>
+</body>
+</html>

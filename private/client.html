@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Client Workspaces — SP Digital</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: system-ui, sans-serif; }
+body { background: #F8FAFC; min-height: 100vh; }
+.top-bar { background: linear-gradient(135deg, #0F172A, #1E293B); color: white; padding: 16px 24px; position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; }
+.top-bar a { color: white; text-decoration: none; background: rgba(255,255,255,0.1); padding: 8px 16px; border-radius: 6px; }
+.container { max-width: 900px; margin: 80px auto 40px; padding: 0 24px; }
+h2 { color: #0F172A; margin-bottom: 8px; }
+.intro { color: #64748B; margin-bottom: 24px; }
+.client-card { background: white; padding: 20px; border-radius: 10px; border: 1px solid #E2E8F0; margin-bottom: 12px; transition: all 0.2s; }
+.client-card:hover { border-color: #7B2FFD; box-shadow: 0 2px 10px rgba(123,47,253,0.08); }
+.client-name { font-weight: 600; font-size: 17px; color: #0F172A; margin-bottom: 4px; }
+.client-meta { font-size: 13px; color: #64748B; margin-bottom: 10px; }
+.ai-badge { display:inline-block; background: #E0F2FE; color: #0369A1; font-size:11px; padding:2px 8px; border-radius:10px; margin-left:8px; }
+.actions a { font-size: 14px; color: #7B2FFD; text-decoration: none; margin-right: 16px; }
+.empty { text-align: center; padding: 60px 20px; color: #94A3B8; }
+.empty button { background: #7B2FFD; color: white; border: none; padding: 10px 20px; border-radius: 6px; margin-top: 16px; cursor: pointer; }
+</style>
+</head>
+<body>
+<script>
+if (localStorage.getItem('spd-auth') !== 'granted') {
+window.location.href = 'login.html';
+}
+</script>
+
+<div class="top-bar">
+<a href="dashboard.html">← Back</a>
+<h1>👥 Client Workspaces</h1>
+<a href="new-client.html">+ New Client</a>
+</div>
+
+<div class="container">
+<h2>All Clients</h2>
+<p class="intro">Every client you've assessed — click to open their workspace</p>
+
+<div id="clientList"></div>
+</div>
+
+<script>
+function renderClients() {
+const clients = JSON.parse(localStorage.getItem('spd-clients') || '[]');
+const list = document.getElementById('clientList');
+
+if (clients.length === 0) {
+list.innerHTML = `
+<div class="empty">
+<div style="font-size:48px; margin-bottom:16px;">📂</div>
+<h3 style="margin-bottom:8px;">No clients yet</h3>
+<p>Start by assessing your first client</p>
+<button onclick="window.location.href='new-client.html'">+ Add First Client</button>
+</div>
+`;
+return;
+}
+
+list.innerHTML = clients.map((c, i) => `
+<div class="client-card">
+<div class="client-name">
+${c.name || 'Unnamed Client'}
+${c.aiNeeded === 'yes' ? '<span class="ai-badge">🤖 AI Enabled</span>' : ''}
+</div>
+<div class="client-meta">
+${c.contact ? 'Contact: ' + c.contact : ''}
+${c.budget ? ' | Budget: ' + c.budget : ''}
+${c.dateCreated ? ' | Added: ' + c.dateCreated : ''}
+</div>
+<div class="actions">
+<a href="#" onclick="viewClient(${i})">📄 View/Edit</a>
+<a href="#" onclick="deleteClient(${i})" style="color:#EF4444;">🗑️ Delete</a>
+</div>
+</div>
+`).join('');
+}
+
+function deleteClient(index) {
+if (confirm('Delete this client? This cannot be undone.')) {
+const clients = JSON.parse(localStorage.getItem('spd-clients') || '[]');
+clients.splice(index, 1);
+localStorage.setItem('spd-clients', JSON.stringify(clients));
+renderClients();
+}
+}
+
+function viewClient(index) {
+alert('Full client workspace coming next! For now, all data is saved in your browser.');
+}
+
+renderClients();
+</script>
+</body>
+</html>

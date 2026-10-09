@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>New Client Assessment — SP Digital</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: system-ui, sans-serif; }
+body { background: #F8FAFC; min-height: 100vh; padding-bottom: 60px; }
+.top-bar { background: linear-gradient(135deg, #0F172A, #1E293B); color: white; padding: 16px 24px; position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; }
+.top-bar a { color: white; text-decoration: none; background: rgba(255,255,255,0.1); padding: 8px 16px; border-radius: 6px; }
+.container { max-width: 800px; margin: 80px auto 0; padding: 0 24px; }
+h2 { color: #0F172A; margin-bottom: 24px; font-size: 22px; }
+.section { background: white; padding: 24px; border-radius: 12px; margin-bottom: 20px; border: 1px solid #E2E8F0; }
+.section h3 { font-size: 16px; color: #7B2FFD; margin-bottom: 16px; }
+label { display: block; margin: 14px 0 6px; font-weight: 500; font-size: 14px; color: #334155; }
+input, select, textarea { width: 100%; padding: 12px; border: 2px solid #E2E8F0; border-radius: 6px; font-size: 15px; }
+input:focus, select:focus, textarea:focus { outline: none; border-color: #7B2FFD; }
+button { background: linear-gradient(135deg, #7B2FFD, #06B6D4); color: white; border: none; padding: 14px 32px; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; margin-top: 10px; }
+button:hover { opacity: 0.95; }
+.btn-secondary { background: #E2E8F0; color: #0F172A; margin-left: 10px; }
+.btn-secondary:hover { background: #CBD5E1; }
+.saved { background: #F0FDF4; border: 1px solid #86EFAC; color: #166534; padding: 16px; border-radius: 8px; margin-top: 20px; display: none; }
+</style>
+</head>
+<body>
+<script>
+if (localStorage.getItem('spd-auth') !== 'granted') {
+window.location.href = 'login.html';
+}
+</script>
+
+<div class="top-bar">
+<a href="dashboard.html">← Back to Dashboard</a>
+<h1>New Client Assessment</h1>
+<span></span>
+</div>
+
+<div class="container">
+<h2>📋 Client Assessment Form</h2>
+<p style="color:#64748B; margin-bottom:24px">Complete this for every new client — saves to your client workspace</p>
+
+<form id="clientForm">
+<!-- Section 1: Basics -->
+<div class="section">
+<h3>👤 Client Information</h3>
+<label>Client / Company Name *</label>
+<input type="text" id="clientName" required>
+
+<label>Contact Person</label>
+<input type="text" id="contactPerson">
+
+<label>Email</label>
+<input type="email" id="clientEmail">
+
+<label>Phone</label>
+<input type="tel" id="clientPhone">
+
+<label>Website (if existing)</label>
+<input type="url" id="existingSite">
+</div>
+
+<!-- Section 2: Scope -->
+<div class="section">
+<h3>🎯 Project Scope & Goals</h3>
+<label>What does the client need from us?</label>
+<textarea id="clientNeeds" rows="4" placeholder="e.g. New website, AI integration, marketing strategy..."></textarea>
+
+<label>Primary Goal / Outcome</label>
+<textarea id="clientGoal" rows="2" placeholder="What does success look like for them?"></textarea>
+
+<label>Budget Range</label>
+<select id="budget">
+<option value="">Select...</option>
+<option>Under £1,000</option>
+<option>£1,000 – £3,000</option>
+<option>£3,000 – £10,000</option>
+<option>£10,000+</option>
+</select>
+
+<label>Timeline / Deadline</label>
+<input type="text" id="timeline" placeholder="e.g. 4–6 weeks">
+</div>
+
+<!-- Section 3: AI Requirements -->
+<div class="section">
+<h3>🤖 AI Requirements</h3>
+<label>Does the client want AI tools integrated?</label>
+<select id="aiNeeded">
+<option value="yes">Yes — AI features included</option>
+<option value="no">No — standard services only</option>
+<option value="exploring">Exploring — to be confirmed</option>
+</select>
+
+<label>Specific AI needs / requests</label>
+<textarea id="aiDetails" rows="3" placeholder="Website builder, content generation, chatbot, automation..."></textarea>
+
+<label>AI Output Types Needed</label>
+<div style="display:grid; gap:8px; margin-top:6px;">
+<label style="font-weight:normal;"><input type="checkbox" id="aiWebsites"> One-page websites</label>
+<label style="font-weight:normal;"><input type="checkbox" id="aiContent"> Blog / copywriting</label>
+<label style="font-weight:normal;"><input type="checkbox" id="aiImages"> Images / graphics</label>
+<label style="font-weight:normal;"><input type="checkbox" id="aiVideo"> Video generation</label>
+</div>
+</div>
+
+<!-- Section 4: Notes -->
+<div class="section">
+<h3>📝 Assessment Notes</h3>
+<label>Additional observations & next steps</label>
+<textarea id="notes" rows="5" placeholder="Your notes from the call..."></textarea>
+</div>
+
+<button type="submit">💾 Save Client Profile</button>
+<button type="button" class="btn-secondary" onclick="window.print()">🖨️ Print / PDF</button>
+
+<div class="saved" id="savedMsg">
+✅ Client saved! Go to "Client Workspaces" to view or edit anytime.
+</div>
+</form>
+</div>
+
+<script>
+const form = document.getElementById('clientForm');
+
+form.addEventListener('submit', function(e) {
+e.preventDefault();
+
+// Get existing clients or start fresh
+const clients = JSON.parse(localStorage.getItem('spd-clients') || '[]');
+
+// Build client object
+const newClient = {
+id: Date.now(),
+name: document.getElementById('clientName').value,
+contact: document.getElementById('contactPerson').value,
+email: document.getElementById('clientEmail').value,
+phone: document.getElementById('clientPhone').value,
+existingSite: document.getElementById('existingSite').value,
+needs: document.getElementById('clientNeeds').value,
+goal: document.getElementById('clientGoal').value,
+budget: document.getElementById('budget').value,
+timeline: document.getElementById('timeline').value,
+aiNeeded: document.getElementById('aiNeeded').value,
+aiDetails: document.getElementById('aiDetails').value,
+notes: document.getElementById('notes').value,
+dateCreated: new Date().toLocaleDateString()
+};
+
+// Save to local storage
+clients.unshift(newClient);
+localStorage.setItem('spd-clients', JSON.stringify(clients));
+
+// Show confirmation
+document.getElementById('savedMsg').style.display = 'block';
+form.reset();
+
+setTimeout(() => {
+document.getElementById('savedMsg').style.display = 'none';
+}, 5000);
+});
+</script>
+</body>
+</html>
