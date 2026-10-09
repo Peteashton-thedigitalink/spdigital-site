@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Client Workspace — SP Digital</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: system-ui, sans-serif; }
+body { background: #F8FAFC; min-height: 100vh; padding-bottom: 60px; }
+.top-bar { background: linear-gradient(135deg, #0F172A, #1E293B); color: white; padding: 16px 24px; position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; }
+.top-bar a { color: white; text-decoration: none; background: rgba(255,255,255,0.1); padding: 8px 16px; border-radius: 6px; }
+.container { max-width: 900px; margin: 80px auto 0; padding: 0 24px; }
+
+.header-section { background: white; padding: 24px; border-radius: 12px; border: 1px solid #E2E8F0; margin-bottom: 20px; }
+.client-name { font-size: 24px; color: #0F172A; margin-bottom: 8px; }
+.client-meta { color: #64748B; font-size: 14px; }
+.ai-badge { display:inline-block; background: #E0F2FE; color: #0369A1; font-size:12px; padding:4px 10px; border-radius:12px; margin-left:10px; }
+
+.tabs { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 20px; border-bottom: 1px solid #E2E8F0; padding-bottom: 0; }
+.tab { padding: 12px 20px; cursor: pointer; border-bottom: 3px solid transparent; font-size: 14px; font-weight: 500; color: #64748B; }
+.tab.active { border-bottom-color: #7B2FFD; color: #7B2FFD; font-weight: 600; }
+
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
+.card { background: white; padding: 24px; border-radius: 10px; border: 1px solid #E2E8F0; margin-bottom: 16px; }
+.card h3 { font-size: 16px; color: #0F172A; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid #F1F5F9; }
+.row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+.label { font-weight: 600; color: #334155; min-width: 120px; }
+.value { color: #475569; flex: 1; }
+
+textarea { width: 100%; min-height: 120px; padding: 12px; border: 2px solid #E2E8F0; border-radius: 6px; font-size: 14px; resize: vertical; }
+textarea:focus { outline: none; border-color: #7B2FFD; }
+button { background: #7B2FFD; color: white; border: none; padding: 10px 20px; border-radius: 6px; font-size: 14px; cursor: pointer; }
+button:hover { background: #6b28e0; }
+.btn-secondary { background: #E2E8F0; color: #0F172A; margin-left: 8px; }
+.btn-secondary:hover { background: #CBD5E1; }
+
+.file-area { border: 2px dashed #CBD5E1; border-radius: 8px; padding: 30px; text-align: center; color: #64748B; cursor: pointer; }
+.file-area:hover { border-color: #7B2FFD; color: #7B2FFD; }
+.file-list { margin-top: 12px; }
+.file-item { padding: 8px 12px; background: #F8FAFC; border-radius: 4px; margin-bottom: 6px; font-size: 14px; display: flex; justify-content: space-between; align-items: center; }
+
+.save-note { color: #16A34A; font-size: 13px; margin-top: 10px; display: none; }
+</style>
+</head>
+<body>
+<script>
+if (localStorage.getItem('spd-auth') !== 'granted') {
+window.location.href = 'login.html';
+}
+</script>
+
+<div class="top-bar">
+<a href="clients.html">← Back to All Clients</a>
+<h1 id="pageTitle">Client Workspace</h1>
+<span></span>
+</div>
+
+<div class="container" id="mainContainer" style="display:none;">
+<!-- Client Header -->
+<div class="header-section">
+<h2 class="client-name" id="clientName">Client Name</h2>
+<p class="client-meta" id="clientSubtitle">Added: <span id="clientDate"></span></p>
+</div>
+
+<!-- Tabs -->
+<div class="tabs">
+<div class="tab active" onclick="switchTab('overview')">📋 Overview</div>
+<div class="tab" onclick="switchTab('notes')">📝 Notes</div>
+<div class="tab" onclick="switchTab('files')">📁 Files</div>
+<div class="tab" onclick="switchTab('ai')">🤖 AI Work</div>
+</div>
+
+<!-- TAB 1: OVERVIEW -->
+<div class="tab-content active" id="tab-overview">
+<div class="card">
+<h3>Client Information</h3>
+<div class="row"><span class="label">Contact Person:</span><span class="value" id="vContact">—</span></div>
+<div class="row"><span class="label">Email:</span><span class="value" id="vEmail">—</span></div>
+<div class="row"><span class="label">Phone:</span><span class="value" id="vPhone">—</span></div>
+<div class="row"><span class="label">Existing Website:</span><span class="value" id="vSite">—</span></div>
+</div>
+
+<div class="card">
+<h3>Project Details</h3>
+<div class="row"><span class="label">Client Needs:</span><span class="value" id="vNeeds">—</span></div>
+<div class="row"><span class="label">Primary Goal:</span><span class="value" id="vGoal">—</span></div>
+<div class="row"><span class="label">Budget Range:</span><span class="value" id="vBudget">—</span></div>
+<div class="row"><span class="label">Timeline:</span><span class="value" id="vTimeline">—</span></div>
+</div>
+
+<div class="card">
+<h3>AI Requirements</h3>
+<div class="row"><span class="label">AI Services Needed:</span><span class="value" id="vAiNeeded">—</span></div>
+<div class="row"><span class="label">Details:</span><span class="value" id="vAiDetails">—</span></div>
+</div>
+</div>
+
+<!-- TAB 2: NOTES -->
+<div class="tab-content" id="tab-notes">
+<div class="card">
+<h3>Assessment & Project Notes</h3>
+<textarea id="clientNotes" placeholder="Add notes about this client — meetings, decisions, next steps..."></textarea>
+<button onclick="saveNotes()">💾 Save Notes</button>
+<span class="save-note" id="notesSaved">✅ Notes saved!</span>
+</div>
+</div>
+
+<!-- TAB 3: FILES -->
+<div class="tab-content" id="tab-files">
+<div class="card">
+<h3>Project Files & Deliverables</h3>
+<div class="file-area" onclick="document.getElementById('fileInput').click()">
+<div style="font-size:28px; margin-bottom:8px;">📎</div>
+<div>Click to upload — store website files, logos, docs, AI outputs</div>
+<input type="file" id="fileInput" style="display:none;" onchange="handleFileUpload(event)">
+</div>
+<div class="file-list" id="fileList">
+<em style="color:#94A3B8;">No files uploaded yet</em>
+</div>
+</div>
+</div>
+
+<!-- TAB 4: AI WORK -->
+<div class="tab-content" id="tab-ai">
+<div class="card">
+<h3>AI Outputs for This Client</h3>
+<p style="color:#64748B; margin-bottom:16px;">Save AI-generated work here — drafts, copy, website content, images</p>
+<textarea id="aiWork" placeholder="Paste or type AI outputs here — everything saved stays with this client"></textarea>
+<button onclick="saveAiWork()">💾 Save AI Work</button>
+<span class="save-note" id="aiSaved">✅ AI work saved!</span>
+</div>
+</div>
+</div>
+
+<script>
+let clientIndex = null;
+let clients = [];
+
+// Load client data
+function loadClient() {
+const params = new URLSearchParams(window.location.search);
+clientIndex = parseInt(params.get('index'));
+
+if (isNaN(clientIndex)) {
+document.getElementById('mainContainer').innerHTML = '<div style="text-align:center; padding:60px; color:#64748B;">Client not found</div>';
+return;
+}
+
+clients = JSON.parse(localStorage.getItem('spd-clients') || '[]');
+const client = clients[clientIndex];
+
+if (!client) {
+document.getElementById('mainContainer').innerHTML = '<div style="text-align:center; padding:60px; color:#64748B;">Client not found</div>';
+return;
+}
+
+// Populate header
+document.getElementById('clientName').textContent = client.name || 'Unnamed Client';
+document.getElementById('pageTitle').textContent = client.name || 'Client Workspace';
+document.getElementById('clientDate').textContent = client.dateCreated || 'Unknown';
+
+// Populate overview
+document.getElementById('vContact').textContent = client.contact || 'Not provided';
+document.getElementById('vEmail').innerHTML = client.email ? `<a href="mailto:${client.email}" style="color:#7B2FFD; text-decoration:none;">${client.email}</a>` : 'Not provided';
+document.getElementById('vPhone').textContent = client.phone ? `<a href="tel:${client.phone}" style="color:#7B2FFD; text-decoration:none;">${client.phone}</a>` : 'Not provided';
+document.getElementById('vSite').textContent = client.existingSite || 'None';
+document.getElementById('vNeeds').textContent = client.needs || 'Not recorded';
+document.getElementById('vGoal').textContent = client.goal || 'Not recorded';
+document.getElementById('vBudget').textContent = client.budget || 'Not specified';
+document.getElementById('vTimeline').textContent = client.timeline || 'Not set';
+document.getElementById('vAiNeeded').textContent = {yes:'✅ Yes', no:'❌ No', exploring:'⏳ Exploring'}[client.aiNeeded] || 'Not specified';
+document.getElementById('vAiDetails').textContent = client.aiDetails || 'None';
+
+// Load saved notes/files/AI
+const savedData = JSON.parse(localStorage.getItem('spd-client-' + clientIndex) || '{}');
+document.getElementById('clientNotes').value = savedData.notes || '';
+document.getElementById('aiWork').value = savedData.aiWork || '';
+renderFileList(savedData.files || []);
+
+document.getElementById('mainContainer').style.display = 'block';
+}
+
+// Switch tabs
+function switchTab(tabName) {
+document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+event.target.classList.add('active');
+document.getElementById('tab-' + tabName).classList.add('active');
+}
+
+// Save notes
+function saveNotes() {
+const data = getClientData();
+data.notes = document.getElementById('clientNotes').value;
+saveClientData(data);
+const msg = document.getElementById('notesSaved');
+msg.style.display = 'inline';
+setTimeout(() => msg.style.display = 'none', 2500);
+}
+
+// Save AI work
+function saveAiWork() {
+const data = getClientData();
+data.aiWork = document.getElementById('aiWork').value;
+saveClientData(data);
+const msg = document.getElementById('aiSaved');
+msg.style.display = 'inline';
+setTimeout(() => msg.style.display = 'none', 2500);
+}
+
+// File handling
+let uploadedFiles = [];
+function handleFileUpload(event) {
+const file = event.target.files[0];
+if (!file) return;
+
+const data = getClientData();
+if (!data.files) data.files = [];
+
+const fileInfo = {
+name: file.name,
+size: (file.size / 1024).toFixed(1) + ' KB',
+added: new Date().toLocaleString()
+};
+
+data.files.unshift(fileInfo);
+saveClientData(data);
+renderFileList(data.files);
+event.target.value = '';
+}
+
+function renderFileList(files) {
+const list = document.getElementById('fileList');
+if (!files || files.length === 0) {
+list.innerHTML = '<em style="color:#94A3B8;">No files uploaded yet</em>';
+return;
+}
+list.innerHTML = files.map((f, i) => `
+<div class="file-item">
+<span>📎 ${f.name} <small style="color:#94A3B8;">(${f.size})</small></span>
+<button onclick="deleteFile(${i})" style="background:none; border:none; color:#EF4444; cursor:pointer; padding:0 6px; font-size:16px;">×</button>
+</div>
+`).join('');
+}
+
+function deleteFile(index) {
+if (!confirm('Remove this file from the list?')) return;
+const data = getClientData();
+data.files.splice(index, 1);
+saveClientData(data);
+renderFileList(data.files);
+}
+
+// Helpers
+function getClientData() {
+return JSON.parse(localStorage.getItem('spd-client-' + clientIndex) || '{}');
+}
+
+function saveClientData(data) {
+localStorage.setItem('spd-client-' + clientIndex, JSON.stringify(data));
+}
+
+// Init
+loadClient();
+</script>
+</body>
+</html>
