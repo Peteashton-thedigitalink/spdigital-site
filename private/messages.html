@@ -106,6 +106,8 @@ ${m.text}
 });
 
 box.scrollTop = box.scrollHeight;
+// Save current state as "seen"
+localStorage.setItem('spd-last-seen', JSON.stringify(getMessages()));
 }
 
 function sendMessage() {

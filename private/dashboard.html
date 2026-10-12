@@ -60,7 +60,8 @@ window.location.href = 'login.html';
 </div>
 
 <!-- Card: Message Centre -->
-<div class="card" onclick="window.location.href='messages.html'">
+<div class="card" onclick="window.location.href='messages.html'" style="position:relative;">
+    <span id="msgBadge" style="display:none; position:absolute; top:12px; right:12px; width:12px; height:12px; background:#EF4444; border-radius:50%; box-shadow:0 0 0 2px white;"></span>
     <div class="icon">💬</div>
     <h3>Message Centre</h3>
     <p>Quick notes & messages between Pete & Spencer</p>
@@ -100,6 +101,21 @@ localStorage.removeItem('spd-auth');
 localStorage.removeItem('spd-user');
 window.location.href = 'login.html';
 }
+</script>
+// Message notification badge
+function checkNewMessages() {
+const lastSeen = localStorage.getItem('spd-last-seen') || '[]';
+const messages = JSON.parse(localStorage.getItem('spd-messages') || '[]');
+
+if (messages.length > 0 && JSON.stringify(messages) !== lastSeen) {
+document.getElementById('msgBadge').style.display = 'block';
+} else {
+document.getElementById('msgBadge').style.display = 'none';
+}
+}
+
+// Check when dashboard loads
+checkNewMessages();
 </script>
 </body>
 </html>
