@@ -28,6 +28,9 @@ body { background: #F8FAFC; min-height: 100vh; }
 .grid { grid-template-columns: 1fr; }
 }
 </style>
+<!-- Supabase -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+
 </head>
 <body>
 <!-- Auth Check -->
@@ -118,5 +121,6 @@ document.getElementById('msgBadge').style.display = 'none';
 // Check when dashboard loads
 checkNewMessages();
 </script>
+<script src="../js/config.js"></script>
 </body>
 </html>

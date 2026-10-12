@@ -38,6 +38,7 @@ select { padding: 5px 8px; border-radius: 5px; border: 1px solid #CBD5E1; font-s
 .empty { text-align: center; padding: 60px 20px; color: #94A3B8; }
 .empty-icon { font-size: 48px; margin-bottom: 16px; }
 </style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 </head>
 <body>
 <script>
@@ -160,6 +161,7 @@ ${lead.message ? `<div class="lead-message">${lead.message}</div>` : ''}
 // Initial load
 renderLeads();
 </script>
+<script src="../js/config.js"></script>
 </body>
 </html>
 

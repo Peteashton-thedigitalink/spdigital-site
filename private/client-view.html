@@ -43,6 +43,7 @@ button:hover { background: #6b28e0; }
 
 .save-note { color: #16A34A; font-size: 13px; margin-top: 10px; display: none; }
 </style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 </head>
 <body>
 <script>
@@ -266,5 +267,6 @@ localStorage.setItem('spd-client-' + clientIndex, JSON.stringify(data));
 // Init
 loadClient();
 </script>
+<script src="../js/config.js"></script>
 </body>
 </html>
