@@ -12,7 +12,7 @@ export default async function handler(request) {
     try {
     const body = await request.text();
     
-    const response = await fetch('https://api.openai.com/v1/chat/completions', {
+    const res = await fetch('https://api.openai.com/v1/chat/completions', {
     method: 'POST',
     headers: {
     'Content-Type': 'application/json',
@@ -21,12 +21,31 @@ export default async function handler(request) {
     body: body
     });
     
-    const data = await response.json();
+    const responseText = await res.text();
+    
+    if (!res.ok) {
+    console.error('OpenAI Error:', responseText);
+    return new Response(JSON.stringify({
+    error: `OpenAI API Error: ${res.status}`,
+    details: responseText
+    }), { status: res.status });
+    }
+    
+    let data;
+    try {
+    data = JSON.parse(responseText);
+    } catch (e) {
+    return new Response(JSON.stringify({
+    error: 'Invalid JSON response from OpenAI',
+    details: responseText.substring(0, 200)
+    }), { status: 500 });
+    }
+    
     return new Response(JSON.stringify(data), {
-    status: response.status,
+    status: 200,
     headers: { 'Content-Type': 'application/json' }
     });
-    } catch (error) {
-    return new Response(JSON.stringify({ error: error.message }), { status: 500 });
+    } catch (err) {
+    return new Response(JSON.stringify({ error: err.message }), { status: 500 });
     }
-    }  
+    }
