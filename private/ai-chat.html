@@ -117,7 +117,7 @@ document.querySelectorAll('.model-btn').forEach(btn => {
 btn.addEventListener('click', () => {
 document.querySelectorAll('.model-btn').forEach(b => b.classList.remove('active'));
 btn.classList.add('active');
-selectedModel = btn.dataset.model;
+selectedModel = btn.getAttribute('data-model');
 });
 });
 
