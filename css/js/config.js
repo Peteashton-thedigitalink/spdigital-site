@@ -1,10 +1,6 @@
-// ==========================================
-// SP Digital — Supabase & OpenAI Config
-// ==========================================
+// SP Digital – Configuration
+window.APP_CONFIG = {
+    SUPABASE_URL: 'https://lsjconkrruqvhsmnjkpr.supabase.co',
+    SUPABASE_ANON_KEY: 'sb_publishable_Zy_NwRGPWAFZTuYWBahe8Q_njygllzE'
+    };
 
-const SUPABASE_URL = 'https://lsjconskruqvhsrwlvww.supabase.co';
-const SUPABASE_ANON_KEY = 'sb_publishable_Zy_NwRGPWAFZTuYWBahe8Q_njygllzE';
-
-
-// Initialise Supabase
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
