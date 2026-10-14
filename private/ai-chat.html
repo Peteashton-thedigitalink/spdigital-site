@@ -5,261 +5,765 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AI Command Centre — SP Digital</title>
 <style>
-* { margin: 0; padding: 0; box-sizing: border-box; font-family: system-ui, sans-serif; }
-body { background: #F8FAFC; min-height: 100vh; }
-.top-bar { background: linear-gradient(135deg, #0F172A, #1E293B); color: white; padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; }
-.top-bar a { color: white; text-decoration: none; background: rgba(255,255,255,0.1); padding: 8px 16px; border-radius: 8px; }
-.top-bar a:hover { background: rgba(255,255,255,0.2); }
-.container { max-width: 900px; margin: 0 auto; padding: 24px; }
-h1 { color: #0F172A; margin-bottom: 8px; }
-.intro { color: #64748B; margin-bottom: 24px; }
+* {
+box-sizing: border-box;
+margin: 0;
+padding: 0;
+font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
 
-.chat-container { background: white; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); overflow: hidden; }
-.chat-header { background: linear-gradient(135deg, #7B2FFD, #06B6D4); color: white; padding: 20px 24px; }
-.chat-header h2 { font-size: 20px; margin-bottom: 4px; }
-.chat-header p { opacity: 0.9; font-size: 14px; }
+body {
+background: #f7f5ff;
+min-height: 100vh;
+display: flex;
+}
 
-.model-select { padding: 16px 24px; border-bottom: 1px solid #E2E8F0; display: flex; gap: 12px; flex-wrap: wrap; }
-.model-btn { padding: 8px 16px; border: 2px solid #E2E8F0; background: white; border-radius: 8px; cursor: pointer; font-size: 14px; transition: all 0.2s; }
-.model-btn.active { border-color: #7B2FFD; background: #F3E8FF; color: #7B2FFD; font-weight: 600; }
-.model-btn:hover { border-color: #CBD5E1; }
+/* Sidebar */
+.sidebar {
+width: 280px;
+background: #2a1b47;
+color: white;
+display: flex;
+flex-direction: column;
+border-right: 1px solid #444;
+}
 
-.messages { height: 450px; overflow-y: auto; padding: 24px; background: #FAFBFC; }
-.message { margin-bottom: 20px; display: flex; gap: 12px; }
-.message.user { flex-direction: row-reverse; }
-.avatar { width: 36px; height: 36px; border-radius: 50%; background: #E2E8F0; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
-.message.user .avatar { background: linear-gradient(135deg, #7B2FFD, #9D4EDD); color: white; }
-.bubble { max-width: 75%; padding: 14px 18px; border-radius: 16px; line-height: 1.5; }
-.message.ai .bubble { background: white; border: 1px solid #E2E8F0; border-top-left-radius: 4px; }
-.message.user .bubble { background: linear-gradient(135deg, #7B2FFD, #9D4EDD); color: white; border-top-right-radius: 4px; }
+.sidebar-header {
+padding: 20px;
+border-bottom: 1px solid #444;
+}
 
-.input-area { padding: 20px 24px; border-top: 1px solid #E2E8F0; background: white; }
-.input-wrapper { display: flex; gap: 12px; }
-textarea { flex: 1; padding: 14px 16px; border: 2px solid #E2E8F0; border-radius: 12px; font-size: 15px; resize: none; height: 52px; transition: border-color 0.2s; }
-textarea:focus { outline: none; border-color: #7B2FFD; }
-button { padding: 14px 28px; background: linear-gradient(135deg, #7B2FFD, #9D4EDD); color: white; border: none; border-radius: 12px; font-size: 15px; font-weight: 600; cursor: pointer; transition: transform 0.2s; }
-button:hover { transform: scale(1.02); }
-button:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+.sidebar-header h2 {
+font-size: 18px;
+margin-bottom: 12px;
+}
 
-.typing-indicator { display: none; padding: 12px 16px; color: #64748B; font-size: 14px; font-style: italic; }
-.typing-indicator.show { display: block; }
+.new-chat-btn {
+width: 100%;
+padding: 10px 14px;
+background: #7c3aed;
+color: white;
+border: none;
+border-radius: 8px;
+font-size: 14px;
+cursor: pointer;
+transition: background 0.2s;
+}
 
-.actions { padding: 12px 24px; display: flex; gap: 12px; border-top: 1px solid #F1F5F9; }
-.action-btn { font-size: 13px; padding: 6px 12px; background: #F1F5F9; border: none; border-radius: 6px; color: #475569; cursor: pointer; }
-.action-btn:hover { background: #E2E8F0; }
+.new-chat-btn:hover {
+background: #6d28d9;
+}
 
-.welcome-box { text-align: center; padding: 40px 20px; color: #64748B; }
-.welcome-box h3 { color: #0F172A; margin-bottom: 8px; font-size: 18px; }
+.chat-list {
+flex: 1;
+overflow-y: auto;
+padding: 12px;
+}
+
+.chat-item {
+padding: 10px 12px;
+border-radius: 6px;
+margin-bottom: 6px;
+cursor: pointer;
+display: flex;
+justify-content: space-between;
+align-items: center;
+font-size: 14px;
+background: transparent;
+transition: background 0.2s;
+}
+
+.chat-item:hover, .chat-item.active {
+background: #3c286b;
+}
+
+.chat-item-title {
+flex: 1;
+overflow: hidden;
+text-overflow: ellipsis;
+white-space: nowrap;
+}
+
+.chat-item-actions {
+display: none;
+gap: 4px;
+}
+
+.chat-item:hover .chat-item-actions {
+display: flex;
+}
+
+.chat-action-btn {
+background: none;
+border: none;
+color: #aaa;
+cursor: pointer;
+font-size: 12px;
+padding: 2px 6px;
+}
+
+.chat-action-btn:hover {
+color: white;
+}
+
+.empty-history {
+color: #888;
+font-size: 13px;
+text-align: center;
+padding: 30px 15px;
+}
+
+/* Main Chat Area */
+.chat-container {
+flex: 1;
+display: flex;
+flex-direction: column;
+max-width: 100%;
+}
+
+.chat-header {
+background: linear-gradient(135deg, #6d28d9, #7c3aed);
+color: white;
+padding: 20px 24px;
+}
+
+.chat-header h1 {
+font-size: 20px;
+margin-bottom: 8px;
+}
+
+.model-selector {
+display: flex;
+gap: 10px;
+margin-top: 10px;
+flex-wrap: wrap;
+}
+
+.model-btn {
+padding: 6px 14px;
+background: rgba(255,255,255,0.2);
+border: none;
+color: white;
+border-radius: 20px;
+cursor: pointer;
+font-size: 13px;
+}
+
+.model-btn.active {
+background: white;
+color: #6d28d9;
+font-weight: 600;
+}
+
+.chat-messages {
+flex: 1;
+padding: 24px;
+overflow-y: auto;
+background: white;
+}
+
+.welcome-box {
+text-align: center;
+padding: 60px 20px;
+color: #6b7280;
+}
+
+.message {
+margin-bottom: 20px;
+padding: 14px 18px;
+border-radius: 16px;
+max-width: 80%;
+line-height: 1.5;
+}
+
+.user-message {
+background: #7c3aed;
+color: white;
+margin-left: auto;
+border-bottom-right-radius: 4px;
+}
+
+.assistant-message {
+background: #f3f4f6;
+color: #1f2937;
+margin-right: auto;
+border-bottom-left-radius: 4px;
+}
+
+.error-message {
+background: #fee2e2;
+color: #dc2626;
+max-width: 80%;
+padding: 12px 16px;
+border-radius: 8px;
+margin-bottom: 16px;
+}
+
+.input-area {
+padding: 20px 24px;
+border-top: 1px solid #e5e7eb;
+background: white;
+}
+
+.input-wrapper {
+display: flex;
+gap: 12px;
+align-items: flex-end;
+}
+
+#userInput {
+flex: 1;
+padding: 14px 18px;
+border: 2px solid #e5e7eb;
+border-radius: 12px;
+font-size: 15px;
+outline: none;
+transition: border-color 0.2s;
+resize: none;
+min-height: 52px;
+max-height: 120px;
+}
+
+#userInput:focus {
+border-color: #7c3aed;
+}
+
+.send-btn {
+padding: 14px 28px;
+background: #7c3aed;
+color: white;
+border: none;
+border-radius: 12px;
+font-size: 15px;
+font-weight: 600;
+cursor: pointer;
+transition: background 0.2s;
+height: 52px;
+}
+
+.send-btn:disabled {
+background: #c4b5fd;
+cursor: not-allowed;
+}
+
+.send-btn:hover:not(:disabled) {
+background: #6d28d9;
+}
+
+.toolbar {
+display: flex;
+gap: 10px;
+margin-top: 12px;
+flex-wrap: wrap;
+}
+
+.toolbar-btn {
+padding: 6px 12px;
+background: #f3f4f6;
+border: none;
+border-radius: 6px;
+font-size: 13px;
+cursor: pointer;
+color: #4b5563;
+display: flex;
+align-items: center;
+gap: 5px;
+}
+
+.toolbar-btn:hover {
+background: #e5e7eb;
+}
+
+.saving-indicator {
+font-size: 12px;
+color: #7c3aed;
+margin-left: auto;
+}
+
+/* Rename Modal */
+.modal-overlay {
+position: fixed;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background: rgba(0,0,0,0.5);
+display: flex;
+align-items: center;
+justify-content: center;
+z-index: 1000;
+display: none;
+}
+
+.modal-content {
+background: white;
+padding: 24px;
+border-radius: 12px;
+width: 90%;
+max-width: 400px;
+}
+
+.modal-content h3 {
+margin-bottom: 16px;
+font-size: 18px;
+}
+
+.modal-input {
+width: 100%;
+padding: 10px 14px;
+border: 2px solid #e5e7eb;
+border-radius: 8px;
+font-size: 15px;
+margin-bottom: 16px;
+}
+
+.modal-buttons {
+display: flex;
+gap: 10px;
+justify-content: flex-end;
+}
+
+.modal-btn {
+padding: 8px 16px;
+border-radius: 6px;
+font-size: 14px;
+cursor: pointer;
+border: none;
+}
+
+.modal-btn.cancel {
+background: #e5e7eb;
+}
+
+.modal-btn.confirm {
+background: #7c3aed;
+color: white;
+}
+
+@media (max-width: 768px) {
+body {
+flex-direction: column;
+}
+.sidebar {
+width: 100%;
+max-height: 200px;
+}
+.message {
+max-width: 90%;
+}
+}
 </style>
 </head>
 <body>
-
-<script>
-if (!localStorage.getItem('spd-auth') === 'granted') {
-window.location.href = 'login.html';
-}
-</script>
-
-<div class="top-bar">
-<a href="dashboard.html">← Back to Dashboard</a>
-<span><strong>🤖 AI Command Centre</strong></span>
-<span></span>
+<!-- Sidebar -->
+<div class="sidebar">
+<div class="sidebar-header">
+<h2>💬 Chat History</h2>
+<button class="new-chat-btn" onclick="createNewChat()">+ New Chat</button>
+</div>
+<div class="chat-list" id="chatList">
+<div class="empty-history">No saved conversations yet</div>
+</div>
 </div>
 
-<div class="container">
-<h1>🤖 AI Command Centre</h1>
-<p class="intro">One interface — powered by OpenAI. Select a model, type your request, and start creating.</p>
-
+<!-- Main Chat Area -->
 <div class="chat-container">
 <div class="chat-header">
-<h2>SP Digital AI Assistant</h2>
+<h1>🤖 SP Digital AI Assistant</h1>
 <p>Your intelligent workspace — always ready</p>
+<div class="model-selector">
+<button class="model-btn active" data-model="gpt-4o-mini">GPT-4o Mini</button>
+<button class="model-btn" data-model="gpt-4o">GPT-4o</button>
+<button class="model-btn" data-model="gpt-4-turbo">GPT-4 Turbo</button>
+</div>
 </div>
 
-<div class="model-select">
-    <button class="model-btn active" data-model="gpt-4o">GPT-4o</button>
-    <button class="model-btn" data-model="gpt-4o-mini">GPT-4o Mini</button>
-    <button class="model-btn" data-model="gpt-3.5-turbo">GPT-3.5 Turbo</button>
-</div>
-
-<div class="messages" id="messages">
+<div class="chat-messages" id="chatMessages">
 <div class="welcome-box" id="welcomeBox">
-<h3>👋 Welcome!</h3>
-<p>Choose a model above, then type your message below to get started.</p>
+<h2>👋 Welcome to your AI Assistant</h2>
+<p>Start typing below to begin a new conversation. Your chats are automatically saved.</p>
 </div>
 </div>
-
-<div class="typing-indicator" id="typing">AI is thinking...</div>
 
 <div class="input-area">
 <div class="input-wrapper">
 <textarea id="userInput" placeholder="Type your message here..." rows="1"></textarea>
-<button id="sendBtn" oneclick="sendmessage()">send</button>
+<button class="send-btn" id="sendBtn" onclick="sendMessage()">Send</button>
 </div>
-</div>
-
-<div class="actions">
-<button class="action-btn" onclick="clearChat()">🗑️ Clear Chat</button>
-<button class="action-btn" onclick="downloadChat()">📥 Download</button>
-<button class="action-btn" onclick="saveToSupabase()">☁️ Save to Hub</button>
+<div class="toolbar">
+<button class="toolbar-btn" onclick="clearChat()">🗑️ Clear Chat</button>
+<button class="toolbar-btn" onclick="downloadChat()">⬇️ Download</button>
+<span class="saving-indicator" id="savingIndicator"></span>
 </div>
 </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
-<!--<script src="/js/config.js"></script> -->
+<!-- Rename Modal -->
+<div class="modal-overlay" id="renameModal">
+<div class="modal-content">
+<h3>Rename Conversation</h3>
+<input type="text" class="modal-input" id="renameInput" placeholder="Enter new name...">
+<div class="modal-buttons">
+<button class="modal-btn cancel" onclick="closeRenameModal()">Cancel</button>
+<button class="modal-btn confirm" onclick="confirmRename()">Save</button>
+</div>
+</div>
+</div>
+
 <script>
+// Global state
 let selectedModel = 'gpt-4o-mini';
 let conversationHistory = [];
+let currentConversationId = null;
+let renameTargetId = null;
 
 // Model selection
 document.querySelectorAll('.model-btn').forEach(btn => {
 btn.addEventListener('click', () => {
 document.querySelectorAll('.model-btn').forEach(b => b.classList.remove('active'));
 btn.classList.add('active');
-selectedModel = btn.getAttribute('data-model');
+selectedModel = btn.dataset.model;
 });
 });
 
-// Send message
-async function sendMessage() {
+// Load chat list on page open
+loadChatList();
+
+// Auto-resize textarea
 const input = document.getElementById('userInput');
-const message = input.value.trim();
-
-if (!message) return;
-
-// Clear welcome box
-document.getElementById('welcomeBox').style.display = 'none';
-
-// Add user message
-addMessage('user', message);
-conversationHistory.push({ role: 'user', content: message });
-input.value = '';
-
-// Show typing
-document.getElementById('typing').classList.add('show');
-document.getElementById('sendBtn').disabled = true;
-
-try {
-// Call OpenAI API
-const response = await fetch('/api/openai-proxy', {
-method: 'POST',
-headers: {
-'Content-Type': 'application/json',
-},
-body: JSON.stringify({
-model: 'gpt-4o-mini',
-messages: conversationHistory,
-temperature: 0.7
-})
+input.addEventListener('input', () => {
+input.style.height = 'auto';
+input.style.height = Math.min(input.scrollHeight, 120) + 'px';
 });
 
-const data = await response.json();
-
-if (data.error) throw new Error(data.error.message);
-
-const aiReply = data.choices[0].message.content;
-conversationHistory.push({ role: 'assistant', content: aiReply });
-
-addMessage('ai', aiReply);
-
-} catch (error) {
-addMessage('ai', `⚠️ Error: ${error.message}`);
-}
-
-// Hide typing
-document.getElementById('typing').classList.remove('show');
-document.getElementById('sendBtn').disabled = false;
-}
-
-// Add message to UI
-function addMessage(sender, text) {
-const container = document.getElementById('messages');
-const div = document.createElement('div');
-div.className = `message ${sender}`;
-
-const avatar = sender === 'user' ? '👤' : '🤖';
-
-div.innerHTML = `
-<div class="avatar">${avatar}</div>
-<div class="bubble">${formatMessage(text)}</div>
-`;
-
-container.appendChild(div);
-container.scrollTop = container.scrollHeight;
-}
-
-// Basic formatting
-function formatMessage(text) {
-return text
-.replace(/\n/g, '<br>')
-.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-}
-
-// Clear chat
-function clearChat() {
-if (confirm('Clear this conversation?')) {
-document.getElementById('messages').innerHTML = `
-<div class="welcome-box" id="welcomeBox">
-<h3>👋 Welcome!</h3>
-<p>Choose a model above, then type your message below to get started.</p>
-</div>
-`;
-conversationHistory = [];
-}
-}
-
-// Download chat
-function downloadChat() {
-if (conversationHistory.length === 0) return;
-
-let text = 'SP Digital — AI Conversation\n';
-text += '==============================\n';
-text += `Model: ${selectedModel}\n`;
-text += `Date: ${new Date().toLocaleString()}\n\n`;
-
-conversationHistory.forEach(msg => {
-const label = msg.role === 'user' ? 'You' : 'AI';
-text += `${label}:\n${msg.content}\n\n`;
-});
-
-const blob = new Blob([text], { type: 'text/plain' });
-const a = document.createElement('a');
-a.href = URL.createObjectURL(blob);
-a.download = `ai-chat-${new Date().toISOString().slice(0,10)}.txt`;
-a.click();
-}
-
-// Save to Supabase
-async function saveToSupabase() {
-if (conversationHistory.length === 0) return;
-
-try {
-const { data, error } = await supabase
-.from('ai_conversations')
-.insert([{
-model_used: selectedModel,
-messages: conversationHistory,
-created_at: new Date().toISOString()
-}]);
-
-if (error) throw error;
-alert('✅ Conversation saved to your hub!');
-} catch (err) {
-alert('⚠️ Could not save: ' + err.message);
-}
-}
-
-// Event listeners
-document.getElementById('sendBtn').addEventListener('click', sendMessage);
-document.getElementById('userInput').addEventListener('keydown', (e) => {
+// Enter to send
+input.addEventListener('keydown', (e) => {
 if (e.key === 'Enter' && !e.shiftKey) {
 e.preventDefault();
 sendMessage();
 }
 });
-</script>
 
+// --- Chat Management ---
+
+async function createNewChat() {
+currentConversationId = 'conv_' + Date.now();
+conversationHistory = [];
+document.getElementById('chatMessages').innerHTML = `
+<div class="welcome-box" id="welcomeBox">
+<h2>👋 New Conversation</h2>
+<p>Start typing below to begin...</p>
+</div>
+`;
+document.querySelector('.chat-header h1').textContent = '🤖 SP Digital AI Assistant';
+await saveConversation();
+loadChatList();
+}
+
+async function saveConversation(title = null) {
+if (!currentConversationId || conversationHistory.length === 0) return;
+
+const chatTitle = title || generateTitle();
+const conversations = JSON.parse(localStorage.getItem('ai_conversations') || '{}');
+
+conversations[currentConversationId] = {
+id: currentConversationId,
+title: chatTitle,
+messages: conversationHistory,
+updatedAt: new Date().toISOString()
+};
+
+localStorage.setItem('ai_conversations', JSON.stringify(conversations));
+showSavingIndicator('Saved ✓');
+}
+
+function generateTitle() {
+const firstMessage = conversationHistory.find(m => m.role === 'user');
+if (firstMessage) {
+return firstMessage.content.substring(0, 25) + (firstMessage.content.length > 25 ? '...' : '');
+}
+return 'New Chat';
+}
+
+function showSavingIndicator(text) {
+const indicator = document.getElementById('savingIndicator');
+indicator.textContent = text;
+setTimeout(() => indicator.textContent = '', 2000);
+}
+
+function loadChatList() {
+const container = document.getElementById('chatList');
+const conversations = JSON.parse(localStorage.getItem('ai_conversations') || '{}');
+const sorted = Object.values(conversations).sort((a, b) =>
+new Date(b.updatedAt) - new Date(a.updatedAt)
+);
+
+if (sorted.length === 0) {
+container.innerHTML = '<div class="empty-history">No saved conversations yet</div>';
+return;
+}
+
+container.innerHTML = sorted.map(chat => `
+<div class="chat-item ${chat.id === currentConversationId ? 'active' : ''}"
+onclick="loadConversation('${chat.id}')">
+<span class="chat-item-title">${escapeHtml(chat.title)}</span>
+<div class="chat-item-actions">
+<button class="chat-action-btn" title="Rename" onclick="event.stopPropagation(); openRenameModal('${chat.id}', '${escapeForJS(chat.title)}')">✏️</button>
+<button class="chat-action-btn" title="Delete" onclick="event.stopPropagation(); deleteConversation('${chat.id}')">🗑️</button>
+</div>
+</div>
+`).join('');
+}
+
+function loadConversation(id) {
+const conversations = JSON.parse(localStorage.getItem('ai_conversations') || '{}');
+const chat = conversations[id];
+if (!chat) return;
+
+currentConversationId = id;
+conversationHistory = chat.messages;
+
+// Update page title
+document.querySelector('.chat-header h1').textContent = '🤖 ' + chat.title;
+
+// Render messages
+const container = document.getElementById('chatMessages');
+container.innerHTML = '';
+
+conversationHistory.forEach(msg => {
+addMessage(msg.role, msg.content, false);
+});
+
+loadChatList();
+}
+
+async function deleteConversation(id) {
+if (!confirm('Delete this conversation? This cannot be undone.')) return;
+
+const conversations = JSON.parse(localStorage.getItem('ai_conversations') || '{}');
+delete conversations[id];
+localStorage.setItem('ai_conversations', JSON.stringify(conversations));
+
+if (currentConversationId === id) {
+currentConversationId = null;
+conversationHistory = [];
+document.getElementById('chatMessages').innerHTML = `
+<div class="welcome-box" id="welcomeBox">
+<h2>👋 Welcome to your AI Assistant</h2>
+<p>Start typing below to begin a new conversation. Your chats are automatically saved.</p>
+</div>
+`;
+document.querySelector('.chat-header h1').textContent = '🤖 SP Digital AI Assistant';
+}
+
+loadChatList();
+}
+
+function openRenameModal(id, currentTitle) {
+renameTargetId = id;
+document.getElementById('renameInput').value = currentTitle;
+document.getElementById('renameModal').style.display = 'flex';
+}
+
+function closeRenameModal() {
+renameTargetId = null;
+document.getElementById('renameModal').style.display = 'none';
+}
+
+async function confirmRename() {
+const newTitle = document.getElementById('renameInput').value.trim();
+if (!newTitle || !renameTargetId) {
+closeRenameModal();
+return;
+}
+
+const conversations = JSON.parse(localStorage.getItem('ai_conversations') || '{}');
+if (conversations[renameTargetId]) {
+// Re-save with new title
+conversations[renameTargetId].title = newTitle;
+localStorage.setItem('ai_conversations', JSON.stringify(conversations));
+
+// Update header if this is the active chat
+if (renameTargetId === currentConversationId) {
+document.querySelector('.chat-header h1').textContent = '🤖 ' + newTitle;
+}
+}
+
+closeRenameModal();
+loadChatList();
+}
+
+// --- Messaging ---
+
+async function sendMessage() {
+const input = document.getElementById('userInput');
+const sendBtn = document.getElementById('sendBtn');
+const message = input.value.trim();
+
+if (!message) return;
+
+// Create conversation if none exists
+if (!currentConversationId) {
+currentConversationId = 'conv_' + Date.now();
+conversationHistory = [];
+}
+
+// Hide welcome box
+const welcomeBox = document.getElementById('welcomeBox');
+if (welcomeBox) welcomeBox.style.display = 'none';
+
+// Add user message
+addMessage('user', message);
+conversationHistory.push({ role: 'user', content: message });
+
+// Clear input
+input.value = '';
+input.style.height = 'auto';
+
+// Disable send
+sendBtn.disabled = true;
+
+try {
+// Build messages array
+const messages = conversationHistory.map(m => ({
+role: m.role,
+content: m.content
+}));
+
+// Send to proxy
+const response = await fetch('/api/openai-proxy', {
+method: 'POST',
+headers: { 'Content-Type': 'application/json' },
+body: JSON.stringify({
+model: selectedModel,
+messages: messages
+})
+});
+
+const responseText = await response.text();
+let data;
+try {
+data = JSON.parse(responseText);
+} catch {
+throw new Error(`Server error: ${responseText.substring(0, 100)}`);
+}
+
+if (!response.ok || data.error) {
+throw new Error(data.error?.message || `Error: ${response.status}`);
+}
+
+const assistantMessage = data.choices[0].message.content;
+addMessage('assistant', assistantMessage);
+conversationHistory.push({ role: 'assistant', content: assistantMessage });
+
+// Auto-title on first reply
+if (conversationHistory.length === 2) {
+await saveConversation();
+} else {
+// Just update timestamp
+const conversations = JSON.parse(localStorage.getItem('ai_conversations') || '{}');
+if (conversations[currentConversationId]) {
+conversations[currentConversationId].messages = conversationHistory;
+conversations[currentConversationId].updatedAt = new Date().toISOString();
+localStorage.setItem('ai_conversations', JSON.stringify(conversations));
+showSavingIndicator('Saved ✓');
+}
+}
+
+loadChatList();
+
+} catch (error) {
+console.error('Error:', error);
+addErrorMessage(error.message);
+} finally {
+sendBtn.disabled = false;
+}
+}
+
+function addMessage(role, content, animate = true) {
+const container = document.getElementById('chatMessages');
+const div = document.createElement('div');
+div.className = `message ${role}-message`;
+div.innerHTML = escapeHtml(content);
+
+if (animate) {
+div.style.opacity = '0';
+div.style.transform = 'translateY(10px)';
+}
+
+container.appendChild(div);
+
+if (animate) {
+setTimeout(() => {
+div.style.transition = 'all 0.3s ease';
+div.style.opacity = '1';
+div.style.transform = 'translateY(0)';
+}, 10);
+}
+
+container.scrollTop = container.scrollHeight;
+}
+
+function addErrorMessage(text) {
+const container = document.getElementById('chatMessages');
+const div = document.createElement('div');
+div.className = 'error-message';
+div.innerHTML = `⚠️ ${escapeHtml(text)}`;
+container.appendChild(div);
+container.scrollTop = container.scrollHeight;
+}
+
+function clearChat() {
+if (!confirm('Clear current chat? Conversation history is still saved in the sidebar.')) return;
+
+document.getElementById('chatMessages').innerHTML = `
+<div class="welcome-box" id="welcomeBox">
+<h2>👋 New Conversation</h2>
+<p>Start typing below to begin...</p>
+</div>
+`;
+conversationHistory = [];
+currentConversationId = null;
+document.querySelector('.chat-header h1').textContent = '🤖 SP Digital AI Assistant';
+}
+
+function downloadChat() {
+if (conversationHistory.length === 0) {
+alert('No conversation to download yet.');
+return;
+}
+
+const title = generateTitle().replace(/[^a-z0-9]/gi, '-').substring(0, 30);
+let text = `SP Digital — AI Conversation\n`;
+text += `==============================\n`;
+text += `Model: ${selectedModel}\n`;
+text += `Date: ${new Date().toLocaleString()}\n`;
+text += `==============================\n\n`;
+
+conversationHistory.forEach(msg => {
+text += `${msg.role === 'user' ? 'You' : 'AI'}:\n${msg.content}\n\n`;
+});
+
+const blob = new Blob([text], { type: 'text/plain' });
+const url = URL.createObjectURL(blob);
+const a = document.createElement('a');
+a.href = url;
+a.download = `chat-${title}.txt`;
+a.click();
+URL.revokeObjectURL(url);
+}
+
+// --- Helpers ---
+function escapeHtml(text) {
+const div = document.createElement('div');
+div.textContent = text;
+return div.innerHTML;
+}
+
+function escapeForJS(text) {
+return text.replace(/'/g, "\\'").replace(/"/g, '\\"');
+}
+</script>
 </body>
 </html>
 
