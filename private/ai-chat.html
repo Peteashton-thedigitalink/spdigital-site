@@ -365,6 +365,63 @@ line-height: 1.3;
 .formatted strong { font-weight: 600; }
 .formatted em { font-style: italic; }
 }
+
+/* File Upload Styles */
+.attach-btn {
+font-size: 20px;
+padding: 12px 10px;
+cursor: pointer;
+border-radius: 8px;
+transition: background 0.2s;
+align-self: flex-end;
+margin-bottom: 4px;
+}
+.attach-btn:hover {
+background: #f3f4f6;
+}
+
+.file-preview-area {
+padding: 10px 0;
+border-top: 1px solid #e5e7eb;
+margin-bottom: 10px;
+}
+
+.file-list {
+display: flex;
+flex-wrap: wrap;
+gap: 10px;
+}
+
+.file-item {
+display: flex;
+align-items: center;
+gap: 8px;
+padding: 6px 12px;
+background: #f3f4f6;
+border-radius: 6px;
+font-size: 13px;
+}
+
+.file-item-img {
+width: 40px;
+height: 40px;
+object-fit: cover;
+border-radius: 4px;
+}
+
+.file-remove {
+background: none;
+border: none;
+color: #888;
+cursor: pointer;
+font-size: 16px;
+padding: 0 4px;
+}
+
+.file-remove:hover {
+color: #dc2626;
+}
+
 </style>
 </head>
 <body>
@@ -399,10 +456,19 @@ line-height: 1.3;
 </div>
 
 <div class="input-area">
-<div class="input-wrapper">
-<textarea id="userInput" placeholder="Type your message here..." rows="1"></textarea>
-<button class="send-btn" id="sendBtn" onclick="sendMessage()">Send</button>
-</div>
+    <!-- File Preview -->
+    <div id="filePreviewArea" class="file-preview-area" style="display: none;">
+    <div id="fileList" class="file-list"></div>
+    </div>
+    
+    <div class="input-wrapper">
+    <label for="fileInput" class="attach-btn" title="Attach file">📎</label>
+    <input type="file" id="fileInput" multiple accept="image/*,.pdf,.doc,.docx,.txt,.md" style="display: none;">
+    <textarea id="userInput" placeholder="Type your message here... or attach a file 📎" rows="1"></textarea>
+    <button class="send-btn" id="sendBtn" onclick="sendMessage()">Send</button>
+    </div>
+    </div>
+
 <div class="toolbar">
 <button class="toolbar-btn" onclick="clearChat()">🗑️ Clear Chat</button>
 <button class="toolbar-btn" onclick="downloadChat()">⬇️ Download</button>
@@ -627,7 +693,12 @@ if (welcomeBox) welcomeBox.style.display = 'none';
 
 // Add user message
 addMessage('user', message);
-conversationHistory.push({ role: 'user', content: message });
+// Show what was sent in chat
+let displayMsg = message;
+if (attachedFiles.length > 0) {
+displayMsg += '\n\n📎 Attached: ' + attachedFiles.map(f => f.name).join(', ');
+}
+conversationHistory.push({ role: 'user', content: displayMsg });
 
 // Clear input
 input.value = '';
@@ -637,11 +708,44 @@ input.style.height = 'auto';
 sendBtn.disabled = true;
 
 try {
-// Build messages array
-const messages = conversationHistory.map(m => ({
+// Build messages array — include any attached files
+let contentParts = [];
+
+// Add user's text message
+if (message) {
+contentParts.push({ type: 'text', text: message });
+}
+
+// Add any attached files
+for (const file of attachedFiles) {
+const content = await readFileContent(file);
+if (content.type === 'image_url') {
+contentParts.push({
+type: 'image_url',
+image_url: { url: content.image_url }
+});
+} else {
+contentParts.push({
+type: 'text',
+text: `\n\n--- File: ${content.name} ---\n${content.text}\n--- End of file ---\n\n`
+});
+}
+}
+
+const messages = [
+...conversationHistory.map(m => ({
 role: m.role,
 content: m.content
-}));
+})),
+{
+role: 'user',
+content: contentParts.length === 1 ? contentParts[0].text : contentParts
+}
+];
+
+// Clear attachments after sending
+attachedFiles = [];
+updateFilePreview();
 
 // Send to proxy
 const response = await fetch('/api/openai-proxy', {
@@ -802,6 +906,93 @@ return div.innerHTML;
 
 function escapeForJS(text) {
 return text.replace(/'/g, "\\'").replace(/"/g, '\\"');
+}
+
+// --- File Upload Handling ---
+
+let attachedFiles = [];
+
+// File input change handler
+document.getElementById('fileInput').addEventListener('change', handleFileSelect);
+
+function handleFileSelect(e) {
+const files = Array.from(e.target.files);
+files.forEach(file => {
+attachedFiles.push(file);
+});
+updateFilePreview();
+// Clear input so same file can be re-selected if needed
+e.target.value = '';
+}
+
+function updateFilePreview() {
+const container = document.getElementById('filePreviewArea');
+const list = document.getElementById('fileList');
+
+if (attachedFiles.length === 0) {
+container.style.display = 'none';
+return;
+}
+
+container.style.display = 'block';
+list.innerHTML = '';
+
+attachedFiles.forEach((file, index) => {
+const item = document.createElement('div');
+item.className = 'file-item';
+
+if (file.type.startsWith('image/')) {
+const reader = new FileReader();
+reader.onload = (ev) => {
+item.innerHTML = `
+<img src="${ev.target.result}" class="file-item-img">
+<span>${escapeHtml(file.name)}</span>
+<button class="file-remove" onclick="removeFile(${index})">×</button>
+`;
+};
+reader.readAsDataURL(file);
+} else {
+item.innerHTML = `
+<span>📄</span>
+<span>${escapeHtml(file.name)}</span>
+<button class="file-remove" onclick="removeFile(${index})">×</button>
+`;
+}
+
+list.appendChild(item);
+});
+}
+
+function removeFile(index) {
+attachedFiles.splice(index, 1);
+updateFilePreview();
+}
+
+// Helper: Read file as text or base64
+async function readFileContent(file) {
+return new Promise((resolve) => {
+const reader = new FileReader();
+
+if (file.type.startsWith('image/')) {
+reader.onload = (e) => {
+resolve({
+type: 'image_url',
+image_url: e.target.result,
+name: file.name
+});
+};
+reader.readAsDataURL(file);
+} else {
+reader.onload = (e) => {
+resolve({
+type: 'text',
+text: e.target.result,
+name: file.name
+});
+};
+reader.readAsText(file);
+}
+});
 }
 </script>
 </body>
