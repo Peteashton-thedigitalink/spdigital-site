@@ -1,3 +1,7 @@
+export const config = {
+    runtime: 'edge',
+};
+
 export default async function handler(request) {
     // Allow POST only
     if (request.method !== 'POST') {
