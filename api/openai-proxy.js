@@ -24,7 +24,7 @@ export const config = {
     'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-    model: 'dall-e-2',
+    model: 'gpt-image-2.5-sunburst',
     prompt: prompt,
     size: size,
     quality: quality,
