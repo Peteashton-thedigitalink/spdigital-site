@@ -1,55 +1,87 @@
 export const config = {
     runtime: 'edge',
-};
-
-export default async function handler(request) {
-    // Allow POST only
-    if (request.method !== 'POST') {
-    return new Response('Method not allowed', { status: 405 });
-    }
+    };
     
-    // Get the API key
+    export default async function handler(request) {
     const apiKey = process.env.OPENAI_API_KEY;
     
     if (!apiKey) {
-    return new Response(JSON.stringify({ error: 'API_KEY_MISSING' }), {
-    status: 200,
-    headers: { 'Content-Type': 'application/json' }
+    return new Response(JSON.stringify({ error: 'API key not configured' }), {
+    status: 500,
+    headers: { 'Content-Type': 'application/json' },
     });
     }
     
     try {
-    // Read what the browser sent
-    const body = await request.text();
+    const { model, messages, action, prompt, size = '1024x1024', quality = 'standard', n = 1 } = await request.json();
     
-    // Send it to OpenAI
-    const openaiResponse = await fetch('https://api.openai.com/v1/chat/completions', {
+    // 🎨 IMAGE GENERATION
+    if (action === 'generate-image') {
+    const imageResponse = await fetch('https://api.openai.com/v1/images/generations', {
     method: 'POST',
     headers: {
+    'Authorization': `Bearer ${apiKey}`,
     'Content-Type': 'application/json',
-    'Authorization': `Bearer ${apiKey}`
     },
-    body: body
+    body: JSON.stringify({
+    model: 'dall-e-3',
+    prompt: prompt,
+    size: size,
+    quality: quality,
+    n: n,
+    }),
     });
     
-    // Get raw text first — don't assume it's JSON
-    const responseText = await openaiResponse.text();
+    const imageData = await imageResponse.json();
     
-    // Send it back exactly as we got it
-    return new Response(responseText, {
-    status: openaiResponse.status,
-    headers: { 'Content-Type': 'application/json' }
+    if (!imageResponse.ok) {
+    return new Response(JSON.stringify({ error: imageData.error?.message || 'Image generation failed' }), {
+    status: imageResponse.status,
+    headers: { 'Content-Type': 'application/json' },
     });
+    }
     
-    } catch (error) {
-    return new Response(JSON.stringify({
-    error: 'PROXY_ERROR',
-    message: error.message
-    }), {
+    return new Response(JSON.stringify(imageData), {
     status: 200,
-    headers: { 'Content-Type': 'application/json' }
+    headers: { 'Content-Type': 'application/json' },
+    });
+    }
+    
+    // 💬 CHAT COMPLETION (existing functionality)
+    const chatResponse = await fetch('https://api.openai.com/v1/chat/completions', {
+    method: 'POST',
+    headers: {
+    'Authorization': `Bearer ${apiKey}`,
+    'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+    model: model || 'gpt-4o-mini',
+    messages: messages,
+    }),
+    });
+    
+    const chatData = await chatResponse.json();
+    
+    if (!chatResponse.ok) {
+    return new Response(JSON.stringify({ error: chatData.error?.message || 'Request failed', details: chatData }), {
+    status: chatResponse.status,
+    headers: { 'Content-Type': 'application/json' },
+    });
+    }
+    
+    return new Response(JSON.stringify(chatData), {
+    status: 200,
+    headers: { 'Content-Type': 'application/json' },
+    });
+    
+    } catch (err) {
+    return new Response(JSON.stringify({ error: err.message || 'Server error' }), {
+    status: 500,
+    headers: { 'Content-Type': 'application/json' },
     });
     }
     }
+    
+    
     
         

@@ -422,6 +422,45 @@ padding: 0 4px;
 color: #dc2626;
 }
 
+/* Image Generation Button */
+.gen-btn {
+background: linear-gradient(135deg, #10b981, #059669);
+color: white;
+border: none;
+padding: 8px 14px;
+border-radius: 8px;
+cursor: pointer;
+font-size: 14px;
+font-weight: 500;
+transition: transform 0.2s, box-shadow 0.2s;
+margin-left: 8px;
+}
+.gen-btn:hover {
+transform: translateY(-1px);
+box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.generated-image {
+max-width: 400px;
+border-radius: 12px;
+margin: 8px 0;
+box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.image-prompt-bar {
+display: flex;
+gap: 8px;
+padding: 10px;
+background: #f0fdf4;
+border-radius: 8px;
+margin-bottom: 10px;
+display: none;
+}
+
+.image-prompt-bar.active {
+display: flex;
+}
+
 </style>
 </head>
 <body>
@@ -442,10 +481,17 @@ color: #dc2626;
 <h1>🤖 SP Digital AI Assistant</h1>
 <p>Your intelligent workspace — always ready</p>
 <div class="model-selector">
-<button class="model-btn active" data-model="gpt-4o-mini">GPT-4o Mini</button>
-<button class="model-btn" data-model="gpt-4o">GPT-4o</button>
-<button class="model-btn" data-model="gpt-4-turbo">GPT-4 Turbo</button>
-</div>
+    <button class="model-btn active" data-model="gpt-4o-mini">GPT-4o Mini</button>
+    <button class="model-btn" data-model="gpt-4o">GPT-4o</button>
+    <button class="model-btn" data-model="gpt-4-turbo">GPT-4 Turbo</button>
+    <button class="gen-btn" id="genImageBtn" onclick="toggleImageMode()">🖼️ Generate Image</button>
+    </div>
+    
+    <!-- Image Prompt Bar -->
+    <div id="imagePromptBar" class="image-prompt-bar">
+    <span>🎨 Image Mode — just send your description below!</span>
+    <button onclick="toggleImageMode()" style="margin-left:auto; background:none; border:none; cursor:pointer; font-size:16px;">✕</button>
+    </div>
 </div>
 
 <div class="chat-messages" id="chatMessages">
@@ -678,6 +724,16 @@ async function sendMessage() {
 const input = document.getElementById('userInput');
 const sendBtn = document.getElementById('sendBtn');
 const message = input.value.trim();
+
+// 🎨 IMAGE GENERATION MODE
+if (imageMode && message) {
+addMessage('user', `🖼️ Creating: "${message}"`);
+conversationHistory.push({ role: 'user', content: `🖼️ Creating: ${message}` });
+input.value = '';
+await generateImage(message);
+toggleImageMode(); // Turn off after sending
+return;
+}
 
 if (!message) return;
 
@@ -993,7 +1049,77 @@ name: file.name
 reader.readAsText(file);
 }
 });
+// --- 🎨 IMAGE GENERATION ---
+
+let imageMode = false;
+
+function toggleImageMode() {
+imageMode = !imageMode;
+const bar = document.getElementById('imagePromptBar');
+const btn = document.getElementById('genImageBtn');
+
+if (imageMode) {
+bar.classList.add('active');
+btn.style.background = '#059669';
+document.getElementById('userInput').placeholder = 'Describe the image you want to create...';
+} else {
+bar.classList.remove('active');
+btn.style.background = '';
+document.getElementById('userInput').placeholder = 'Type your message here... or attach a file 📎';
 }
+}
+
+async function generateImage(prompt) {
+addMessage('assistant', '🎨 Creating your image... Please wait a moment.');
+
+try {
+const response = await fetch('/api/openai-proxy', {
+method: 'POST',
+headers: { 'Content-Type': 'application/json' },
+body: JSON.stringify({
+action: 'generate-image',
+prompt: prompt,
+size: '1024x1024',
+quality: 'standard',
+n: 1
+})
+});
+
+const data = await response.json();
+
+if (!response.ok) throw new Error(data.error || 'Failed to generate image');
+
+const imageUrl = data.data[0].url;
+const revisedPrompt = data.data[0].revised_prompt || prompt;
+
+// Remove "thinking" message
+const messagesDiv = document.getElementById('chatMessages');
+if (messagesDiv.lastChild) messagesDiv.removeChild(messagesDiv.lastChild);
+
+// Show the image
+const html = `
+<div>
+<p style="font-size: 13px; color: #666; margin-bottom: 8px;">🎨 <em>${escapeHtml(revisedPrompt)}</em></p>
+<img src="${imageUrl}" alt="Generated image" class="generated-image" loading="lazy">
+<p style="margin-top: 8px; font-size: 12px;">
+<a href="${imageUrl}" target="_blank" style="color: #10b981;">🔍 Open full size ↗</a>
+</p>
+</div>
+`;
+
+addMessage('assistant', html, true);
+conversationHistory.push({
+role: 'assistant',
+content: `[Generated an image: ${revisedPrompt}]`
+});
+
+} catch (err) {
+console.error('Image error:', err);
+addMessage('assistant', `❌ Sorry — couldn't create that image. Error: ${err.message}`);
+}
+
+}
+
 </script>
 </body>
 </html>
