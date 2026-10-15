@@ -1091,11 +1091,17 @@ const data = await response.json();
 console.log('📷 Full response:', JSON.stringify(data, null, 2));
 if (!response.ok) throw new Error(data.error || 'Failed to generate image');
 
-// Check for base64 image data (new format) or URL
+// Find the first item in data array
 const imageData = data.data?.[0];
-const imageUrl = imageData?.output
-? `data:image/png;base64,${imageData.output}`
-: imageData?.url;
+console.log('🔍 All properties on imageData:', Object.keys(imageData || {}));
+console.log('📷 Full imageData:', imageData);
+
+// Try different possible property names for the image
+const b64Image = imageData?.output || imageData?.b64_json || imageData?.image_url || data.image;
+const imageUrl = b64Image
+? (b64Image.startsWith('http') ? b64Image : `data:image/png;base64,${b64Image}`)
+: null;
+
 const revisedPrompt = imageData?.revised_prompt || prompt;
 
 
