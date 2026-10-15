@@ -13,7 +13,7 @@ export const config = {
     }
     
     try {
-    const { model, messages, action, prompt, size = '1024x1024', quality = 'standard', n = 1 } = await request.json();
+    const { model, messages, action, prompt, size = '1024x1024', quality = 'auto', n = 1 } = await request.json();
     
     // 🎨 IMAGE GENERATION
     if (action === 'generate-image') {
