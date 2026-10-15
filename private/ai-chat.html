@@ -854,13 +854,13 @@ sendBtn.disabled = false;
 }
 }
 
-function addMessage(role, content, animate = true) {
+function addMessage(role, content, isHTML = false, animate = true) {
 const container = document.getElementById('chatMessages');
 const div = document.createElement('div');
 div.className = `message ${role}-message formatted`;
 
 // Convert markdown to clean HTML
-let formatted = escapeHtml(content);
+let formatted = isHTML ? content : escapeHtml(content);
 
 // Headings
 formatted = formatted.replace(/^### (.*)$/gm, '<h3>$1</h3>');
