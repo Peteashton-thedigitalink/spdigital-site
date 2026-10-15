@@ -24,7 +24,7 @@ export const config = {
     'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-    model: 'dall-e-3',
+    model: 'dall-e-2',
     prompt: prompt,
     size: size,
     quality: quality,
